@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Menu } from "./components/Menu";
+import TodoListToday from "./components/TodoListToday";
+import TodoListWeek from "./components/TodoListWeek";
+import TodoListFuture from "./components/TodoListFuture";
 
 function App() {
+  const [isMenuVisible, setIsMenuVisible] = useState(true);
+  const [currentView, setCurrentView] = useState("today");
+
+  const toggleMenu = () => {
+    setIsMenuVisible((prev) => !prev);
+  };
+
+  const renderTodoList = () => {
+    switch (currentView) {
+      case "week":
+        return <TodoListWeek />;
+      case "future":
+        return <TodoListFuture />;
+      default:
+        return <TodoListToday />;
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      {renderTodoList()}
+      <Menu 
+        isVisible={isMenuVisible} 
+        toggleMenu={toggleMenu} 
+        setCurrentView={setCurrentView} 
+        currentView={currentView} 
+      />
     </div>
   );
 }
