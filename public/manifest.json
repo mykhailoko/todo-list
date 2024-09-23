@@ -3,12 +3,12 @@
   "name": "To-Do list",
   "icons": [
     {
-      "src": "to-do-list.png",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "to-do-list64.png",
+      "sizes": "64x64",
       "type": "image/png"
     },
     {
-      "src": "to-do-list.png",
+      "src": "to-do-list192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
@@ -21,5 +21,25 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "screenshots": [
+    {
+      "src": "screenshot-wide.png",
+      "sizes": "800x600",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "screenshot-portrait.png",
+      "sizes": "600x800",
+      "type": "image/png",
+      "form_factor": "tall"
+    },
+    {
+      "src": "screenshot-square.png",
+      "sizes": "600x600",
+      "type": "image/png",
+      "form_factor": "square"
+    }
+  ]
 }
