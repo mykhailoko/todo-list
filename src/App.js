@@ -5,7 +5,7 @@ import TodoListWeek from "./components/TodoListWeek";
 import TodoListFuture from "./components/TodoListFuture";
 
 function App() {
-  const [isMenuVisible, setIsMenuVisible] = useState(true);
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [currentView, setCurrentView] = useState("today");
 
   const toggleMenu = () => {
