@@ -47,6 +47,7 @@ export default function TodoListWeek({ checkStyle, setCheckStyle }) {
       <h1 className="title">To-Do list for the Week</h1>
       <header>
         <input
+          className="input-header"
           value={todoValue}
           onChange={(e) => setTodoValue(e.target.value)}
           placeholder="Enter todo"

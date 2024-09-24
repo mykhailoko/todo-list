@@ -1,24 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Checked from '../assets/checked.png';
 import Unchecked from '../assets/unchecked.png';
 import CheckedCat from '../assets/checkedcat.png';
 import UncheckedCat from '../assets/uncheckedcat.png';
 import { Settings } from './Settings';
 
-export default function TodoListToday({ checkStyle, setCheckStyle }) {
-  const [todos, setTodos] = useState(() => {
-    const storedTodos = localStorage.getItem("todosToday");
-    return storedTodos ? JSON.parse(storedTodos) : [];
-  });
+export default function TodoList({ currentView, checkStyle, setCheckStyle }) {
+  const LOCAL_STORAGE_KEY = currentView === "today" ? "todos_today" : `todos_${currentView}`;
+
+  const [todos, setTodos] = useState([]);
 
   const [todoValue, setTodoValue] = useState("");
   const [settingsVisible, setSettingsVisible] = useState(false);
+
+  useEffect(() => {
+    const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
+    setTodos(storedTodos ? JSON.parse(storedTodos) : []);
+  }, [currentView]);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
+  }, [todos, LOCAL_STORAGE_KEY]);
 
   const handleAddTodos = () => {
     if (todoValue.trim()) {
       const newTodos = [...todos, { text: todoValue, checked: false }];
       setTodos(newTodos);
-      localStorage.setItem("todosToday", JSON.stringify(newTodos));
       setTodoValue("");
     }
   };
@@ -26,7 +33,6 @@ export default function TodoListToday({ checkStyle, setCheckStyle }) {
   const handleDeleteTodo = (index) => {
     const newTodos = todos.filter((_, i) => i !== index);
     setTodos(newTodos);
-    localStorage.setItem("todosToday", JSON.stringify(newTodos));
   };
 
   const toggleCheck = (index) => {
@@ -34,7 +40,6 @@ export default function TodoListToday({ checkStyle, setCheckStyle }) {
       i === index ? { ...todo, checked: !todo.checked } : todo
     );
     setTodos(newTodos);
-    localStorage.setItem("todosToday", JSON.stringify(newTodos));
   };
 
   const getCheckImages = (checked) => {
@@ -46,7 +51,7 @@ export default function TodoListToday({ checkStyle, setCheckStyle }) {
 
   return (
     <div>
-      <h1 className="title">To-Do list for Today</h1>
+      <h1 className="title">To-Do list {currentView}</h1>
 
       <Settings 
         isVisible={settingsVisible} 
@@ -56,6 +61,7 @@ export default function TodoListToday({ checkStyle, setCheckStyle }) {
       
       <header>
         <input
+          className="input-header"
           value={todoValue}
           onChange={(e) => setTodoValue(e.target.value)}
           placeholder="Enter todo"
