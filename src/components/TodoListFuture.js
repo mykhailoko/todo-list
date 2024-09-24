@@ -1,12 +1,15 @@
 import { useState } from "react";
 import Checked from '../assets/checked.png';
 import Unchecked from '../assets/unchecked.png';
+import CheckedCat from '../assets/checkedcat.png';
+import UncheckedCat from '../assets/uncheckedcat.png';
 
-export default function TodoListFuture() {
+export default function TodoListFuture({ checkStyle, setCheckStyle }) {
   const [todos, setTodos] = useState(() => {
     const storedTodos = localStorage.getItem("todosFuture");
     return storedTodos ? JSON.parse(storedTodos) : [];
   });
+
   const [todoValue, setTodoValue] = useState("");
 
   const handleAddTodos = () => {
@@ -32,6 +35,13 @@ export default function TodoListFuture() {
     localStorage.setItem("todosFuture", JSON.stringify(newTodos));
   };
 
+  const getCheckImages = (checked) => {
+    if (checkStyle === 'cat') {
+      return { checkedImg: CheckedCat, uncheckedImg: UncheckedCat };
+    }
+    return { checkedImg: Checked, uncheckedImg: Unchecked };
+  };
+
   return (
     <div>
       <h1 className="title">To-Do list for the Future</h1>
@@ -44,19 +54,28 @@ export default function TodoListFuture() {
         <button onClick={handleAddTodos}>Add</button>
       </header>
       <ul className="main">
-        {todos.map((todo, index) => (
-          <li key={index} className="todoItem">
-            <button className="checkbutton" onClick={() => toggleCheck(index)}>
-              <img className="check" src={todo.checked ? Checked : Unchecked} alt={todo.checked ? "checked" : "unchecked"} />
-            </button>
-            <p style={{ textDecoration: todo.checked ? 'line-through' : 'none' }}>{todo.text}</p>
-            <div className="actionsContainer">
-              <button onClick={() => handleDeleteTodo(index)}>
-                <i className="fa-regular fa-trash-can"></i>
+        {todos.map((todo, index) => {
+          const { checkedImg, uncheckedImg } = getCheckImages(todo.checked);
+          return (
+            <li key={index} className="todoItem">
+              <button className="checkbutton" onClick={() => toggleCheck(index)}>
+                <img
+                  className="check"
+                  src={todo.checked ? checkedImg : uncheckedImg}
+                  alt={todo.checked ? "checked" : "unchecked"}
+                />
               </button>
-            </div>
-          </li>
-        ))}
+              <p style={{ textDecoration: todo.checked ? 'line-through' : 'none' }}>
+                {todo.text}
+              </p>
+              <div className="actionsContainer">
+                <button onClick={() => handleDeleteTodo(index)}>
+                  <i className="fa-regular fa-trash-can"></i>
+                </button>
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

@@ -3,7 +3,7 @@ import React from 'react';
 export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView }) => {
   return (
     <div>
-        <i  className="fa-solid fa-bars"
+        <i  className={isVisible ? "fa-solid fa-xmark" : "fa-solid fa-bars"}
             id='bar-icon'
             onClick={toggleMenu}
             style={{ color: isVisible ? '#202124' : 'white' }}
