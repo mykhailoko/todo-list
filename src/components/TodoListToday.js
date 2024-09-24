@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Checked from '../assets/checked.png';
+import Unchecked from '../assets/unchecked.png';
 
 export default function TodoListToday() {
   const [todos, setTodos] = useState(() => {
@@ -9,7 +11,7 @@ export default function TodoListToday() {
 
   const handleAddTodos = () => {
     if (todoValue.trim()) {
-      const newTodos = [...todos, todoValue];
+      const newTodos = [...todos, { text: todoValue, checked: false }];
       setTodos(newTodos);
       localStorage.setItem("todosToday", JSON.stringify(newTodos));
       setTodoValue("");
@@ -18,6 +20,14 @@ export default function TodoListToday() {
 
   const handleDeleteTodo = (index) => {
     const newTodos = todos.filter((_, i) => i !== index);
+    setTodos(newTodos);
+    localStorage.setItem("todosToday", JSON.stringify(newTodos));
+  };
+
+  const toggleCheck = (index) => {
+    const newTodos = todos.map((todo, i) =>
+      i === index ? { ...todo, checked: !todo.checked } : todo
+    );
     setTodos(newTodos);
     localStorage.setItem("todosToday", JSON.stringify(newTodos));
   };
@@ -36,7 +46,10 @@ export default function TodoListToday() {
       <ul className="main">
         {todos.map((todo, index) => (
           <li key={index} className="todoItem">
-            <p>{todo}</p>
+            <button className="checkbutton" onClick={() => toggleCheck(index)}>
+              <img className="check" src={todo.checked ? Checked : Unchecked} alt={todo.checked ? "checked" : "unchecked"} />
+            </button>
+            <p style={{ textDecoration: todo.checked ? 'line-through' : 'none' }}>{todo.text}</p>
             <div className="actionsContainer">
               <button onClick={() => handleDeleteTodo(index)}>
                 <i className="fa-regular fa-trash-can"></i>

@@ -98,6 +98,7 @@ p {
 }
 
 .actionsContainer button {
+  font-size: 16px;
   transition-duration: 200ms;
   border: none;
   background: transparent;
@@ -123,7 +124,7 @@ p {
 }
 
 .container-menu {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255);
   width: 300px;
   height: 100vh;
   position: fixed;
@@ -171,3 +172,16 @@ p {
   background-color: rgb(32, 33, 36, 0.85);
   color: white;
 }
+
+.check {
+  width: 18px;
+  height: 18px;
+}
+
+.checkbutton {
+  transition-duration: 200ms;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
