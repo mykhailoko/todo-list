@@ -36,7 +36,7 @@ export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoL
                 onClick={() => setCurrentView("today")}
                 className={currentView === "today" ? "active" : ""}
               >
-               нy today
+               today
               </a>
             </div>
             {todoLists.map((list, index) => (
