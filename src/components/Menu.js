@@ -1,9 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoLists, setTodoLists, setCurrentViewPage }) => {
   const [inputValue, setInputValue] = useState('');
   const [editIndex, setEditIndex] = useState(null);
   const [editItemValue, setEditItemValue] = useState('');
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      const menu = document.querySelector('.menu');
+      const containerMenu = document.querySelector('.container-menu');
+      const barIcon = document.getElementById('bar-icon');
+  
+      if (
+        isVisible &&
+        menu &&
+        !menu.contains(e.target) &&
+        !containerMenu.contains(e.target) &&
+        !barIcon.contains(e.target)
+      ) {
+        toggleMenu();
+      }
+    };
+  
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isVisible, toggleMenu]);
+
+  useEffect(() => {
+    const handleSwipeClose = (e) => {
+      const touchStartX = e.changedTouches[0].clientX;
+      const touchEndX = e.changedTouches[0].clientX;
+
+      if (touchEndX - touchStartX < -50 && isVisible) {
+        toggleMenu();
+      }
+    };
+
+    document.addEventListener('touchend', handleSwipeClose);
+    return () => {
+      document.removeEventListener('touchend', handleSwipeClose);
+    };
+  }, [isVisible, toggleMenu]);
 
   const handleAddItem = () => {
     if (inputValue.trim()) {

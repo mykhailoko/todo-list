@@ -6,6 +6,37 @@ export const Settings = ({ isVisible, toggleSettings, setCheckStyle, checkStyle 
   const [selectedStyle, setSelectedStyle] = useState("usual");
 
   useEffect(() => {
+    const handleClickOutsideSet = (e) => {
+      const settings = document.querySelector('.settings-menu');
+      const settingsIcon = document.getElementById('settings-icon');
+      if (isVisible && settings && !settings.contains(e.target) && !settingsIcon.contains(e.target)) {
+        toggleSettings();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutsideSet);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutsideSet);
+    };
+  }, [isVisible, toggleSettings]);
+
+  useEffect(() => {
+    const handleSwipeCloseSet = (e) => {
+      const touchStartX = e.changedTouches[0].clientX;
+      const touchEndX = e.changedTouches[0].clientX;
+
+      if (touchEndX - touchStartX < -50 && isVisible) {
+        toggleSettings();
+      }
+    };
+
+    document.addEventListener('touchend', handleSwipeCloseSet);
+    return () => {
+      document.removeEventListener('touchend', handleSwipeCloseSet);
+    };
+  }, [isVisible, toggleSettings]);
+
+  useEffect(() => {
     const savedStyle = localStorage.getItem("selectedStyle");
     if (savedStyle) {
       setSelectedStyle(savedStyle);
