@@ -3,30 +3,28 @@ import Checked from '../assets/checked.png';
 import Unchecked from '../assets/unchecked.png';
 import CheckedCat from '../assets/checkedcat.png';
 import UncheckedCat from '../assets/uncheckedcat.png';
-import { Settings } from './Settings';
 
-export default function TodoList({ currentView, checkStyle, setCheckStyle }) {
-  const LOCAL_STORAGE_KEY = `todos_${currentView}`;
-  const [todos, setTodos] = useState([]);
+export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
+  const LOCAL_STORAGE_KEY = `todosWeek_${dayTitle}`;
+  const [todos, setTodos] = useState(() => {
+    const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
+    return storedTodos ? JSON.parse(storedTodos) : [];
+  });
   const [todoValue, setTodoValue] = useState("");
-  const [settingsVisible, setSettingsVisible] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [editTodoValue, setEditTodoValue] = useState("");
-
-  useEffect(() => {
-    const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
-    setTodos(storedTodos ? JSON.parse(storedTodos) : []);
-  }, [currentView]);
+  const [showInput, setShowInput] = useState(false); 
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
   }, [todos, LOCAL_STORAGE_KEY]);
-  
+
   const handleAddTodos = () => {
     if (todoValue.trim()) {
       const newTodos = [...todos, { text: todoValue, checked: false }];
       setTodos(newTodos);
       setTodoValue("");
+      setShowInput(false);
     }
   };
 
@@ -65,24 +63,28 @@ export default function TodoList({ currentView, checkStyle, setCheckStyle }) {
   };
 
   return (
-    <div>
-      <h1 className="title">To-Do list {currentView}</h1>
-
-      <Settings 
-        isVisible={settingsVisible} 
-        toggleSettings={() => setSettingsVisible(!settingsVisible)} 
-        setCheckStyle={setCheckStyle}
-      />
-      
-      <header className="usual-header">
-        <input
-          className="input-header"
-          value={todoValue}
-          onChange={(e) => setTodoValue(e.target.value)}
-          placeholder="Enter todo"
-        />
-        <button className="header-button" onClick={handleAddTodos}>Add</button>
+    <div className="day">
+      <header className="week-header">
+        <h1 className="week-title">{dayTitle}</h1>
+        <button 
+          className="week-header-button" 
+          onClick={() => setShowInput(!showInput)}
+        >
+          <i className={showInput ? "fa-solid fa-xmark" : "fa-solid fa-plus"} style={{ color: 'white', fontSize: '24px' }}></i>
+        </button>
       </header>
+      
+      {showInput && (
+        <div className="usual-header">
+          <input
+            className="input-header"
+            value={todoValue}
+            onChange={(e) => setTodoValue(e.target.value)}
+            placeholder="Enter todo"
+          />
+          <button className="header-button" onClick={handleAddTodos}>Add</button>
+        </div>
+      )}
       
       <ul className="main">
         {todos.map((todo, index) => {
@@ -104,11 +106,6 @@ export default function TodoList({ currentView, checkStyle, setCheckStyle }) {
                   value={editTodoValue}
                   onChange={(e) => setEditTodoValue(e.target.value)}
                   onBlur={() => handleSaveTodo(index)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      handleSaveTodo(index);
-                    }
-                  }}
                   autoFocus
                 />
               ) : (

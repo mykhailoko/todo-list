@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoLists, setTodoLists, setCurrentViewPage  }) => {
+export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoLists, setTodoLists, setCurrentViewPage }) => {
   const [inputValue, setInputValue] = useState('');
   const [editIndex, setEditIndex] = useState(null);
   const [editItemValue, setEditItemValue] = useState('');
@@ -50,6 +50,15 @@ export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoL
       {isVisible && (
         <div className={`container-menu ${isVisible ? 'visible' : ''}`}>
           <div className='menu'>
+            <div className='menu-item'>
+              <a onClick={() => {
+                setCurrentView("Week");
+                setCurrentViewPage("Week");
+              }} 
+              className={currentView === "Week" ? "active" : ""}>
+                Week
+              </a>
+            </div>
             {todoLists.map((list, index) => (
               <div key={index} className='menu-item'>
                 {editIndex === index ? (
@@ -70,11 +79,9 @@ export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoL
                     setCurrentView(list.name); 
                     setCurrentViewPage(list.name);
                   }} 
-                  className={currentView === list.name ? "active" : ""}
-                  >
+                  className={currentView === list.name ? "active" : ""}>
                     {list.name}
                   </a>
-                  
                 )}
                 <button 
                   className='edit-list' 

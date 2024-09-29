@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Menu } from "./components/Menu";
 import { Settings } from "./components/Settings";
 import TodoList from "./components/TodoList";
+import TodoListWeek from "./components/TodoListWeek";
+import { WeekDay } from "./components/WeekDay";
 
 function App() {
   const [todoLists, setTodoLists] = useState(() => {
@@ -69,12 +71,20 @@ function App() {
         setCheckStyle={setCheckStyle}
         checkStyle={checkStyle}
       />
-      <TodoList 
-        currentView={currentView}
-        currentViewPage={currentViewPage} 
-        checkStyle={checkStyle} 
-        setCheckStyle={setCheckStyle}
-      />
+     
+      {currentView === "Week" ? (
+        <TodoListWeek 
+          checkStyle={checkStyle} 
+          setCheckStyle={setCheckStyle}
+        />
+      ) : (
+        <TodoList 
+          currentView={currentView}
+          currentViewPage={currentViewPage} 
+          checkStyle={checkStyle} 
+          setCheckStyle={setCheckStyle}
+        />
+      )}
     </div>
   );
 }
