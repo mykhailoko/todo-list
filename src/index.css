@@ -226,8 +226,8 @@ header button {
 .stylecat,
 .styleusual {
   transition-duration: 200ms;
+  background-color: transparent;
   border: none;
-  background: transparent;
   cursor: pointer;
   padding: 10px;
   border-radius: 10px;
@@ -291,7 +291,18 @@ header button {
   right: 0px;
 }
 
-.menu-item .delete-list:hover {
+.menu-item .edit-list {
+  font-size: 18px;
+  transition-duration: 200ms;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding-right: 40px;
+  position: absolute;
+  right: 0px;
+}
+
+.menu-item .edit-list:hover {
   opacity: 0.7;
 }
 
@@ -299,7 +310,6 @@ header button {
   padding: 5px;
   width: 50%;
 }
-
 
 @media only screen and (max-width: 900px) {
   .title {

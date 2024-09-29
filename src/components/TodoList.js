@@ -6,13 +6,10 @@ import UncheckedCat from '../assets/uncheckedcat.png';
 import { Settings } from './Settings';
 
 export default function TodoList({ currentView, checkStyle, setCheckStyle }) {
-  const LOCAL_STORAGE_KEY = currentView === "today" ? "todos_today" : `todos_${currentView}`;
-
+  const LOCAL_STORAGE_KEY = `todos_${currentView}`;
   const [todos, setTodos] = useState([]);
-
   const [todoValue, setTodoValue] = useState("");
   const [settingsVisible, setSettingsVisible] = useState(false);
-
   const [editIndex, setEditIndex] = useState(null);
   const [editTodoValue, setEditTodoValue] = useState("");
 
@@ -24,6 +21,7 @@ export default function TodoList({ currentView, checkStyle, setCheckStyle }) {
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
   }, [todos, LOCAL_STORAGE_KEY]);
+  
 
   const handleAddTodos = () => {
     if (todoValue.trim()) {
@@ -125,7 +123,7 @@ export default function TodoList({ currentView, checkStyle, setCheckStyle }) {
               
               <div className="actionsContainer">
                 <button onClick={() => handleEditTodo(index)}>
-                  <i class="fa-solid fa-pencil"></i>
+                  <i className="fa-solid fa-pencil"></i>
                 </button>
                 <button onClick={() => handleDeleteTodo(index)}>
                   <i className="fa-regular fa-trash-can"></i>

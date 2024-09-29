@@ -4,71 +4,76 @@ import { Settings } from "./components/Settings";
 import TodoList from "./components/TodoList";
 
 function App() {
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const [currentView, setCurrentView] = useState("today");
-  const [isSettingsVisible, setIsSettingsVisible] = useState(false);
-  const [checkStyle, setCheckStyle] = useState(() => {
-    const savedStyle = localStorage.getItem("checkStyle");
-    return savedStyle ? savedStyle : "usual";
-  });
-
   const [todoLists, setTodoLists] = useState(() => {
     const storedLists = localStorage.getItem("todoLists");
-    return storedLists ? JSON.parse(storedLists) : [];
+    return storedLists ? JSON.parse(storedLists) : [
+      { name: "List 1", todos: [] },
+      { name: "List 2", todos: [] },
+    ];
   });
+
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const [isSettingsVisible, setIsSettingsVisible] = useState(false);
+  
+  const [currentView, setCurrentView] = useState("");
+  const [currentViewPage, setCurrentViewPage] = useState(() => {
+    const storedView = localStorage.getItem("currentViewPage");
+    return storedView || todoLists[0]?.name;
+  });
+  
+  const [checkStyle, setCheckStyle] = useState(() => {
+    const savedStyle = localStorage.getItem("checkStyle");
+    return savedStyle;
+  });
+
+  useEffect(() => {
+    const storedView = localStorage.getItem("currentViewPage");
+    if (storedView) {
+      setCurrentView(storedView);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("todoLists", JSON.stringify(todoLists));
+    localStorage.setItem("currentView", currentView);
+    localStorage.setItem("currentViewPage", currentViewPage);
+  }, [todoLists, currentView, currentViewPage]);
 
   useEffect(() => {
     localStorage.setItem("checkStyle", checkStyle);
   }, [checkStyle]);
 
-  useEffect(() => {
-    localStorage.setItem("todoLists", JSON.stringify(todoLists));
-  }, [todoLists]);
-
   const toggleMenu = () => {
-    setIsMenuVisible((prev) => !prev);
+    setIsMenuVisible(!isMenuVisible);
   };
 
   const toggleSettings = () => {
-    setIsSettingsVisible((prev) => !prev);
-  };
-
-  const renderTodoList = () => {
-    const currentTodoList = todoLists.find(list => list.name === currentView);
-    return (
-      <TodoList 
-        currentView={currentView} 
-        checkStyle={checkStyle} 
-        setCheckStyle={setCheckStyle} 
-        todos={currentTodoList ? currentTodoList.todos : []}
-        setTodos={(newTodos) => {
-          if (currentTodoList) {
-            const updatedLists = todoLists.map(list => 
-              list.name === currentView ? { ...list, todos: newTodos } : list
-            );
-            setTodoLists(updatedLists);
-          }
-        }}
-      />
-    );
+    setIsSettingsVisible(!isSettingsVisible);
   };
 
   return (
     <div className="container">
-      {renderTodoList()}
       <Menu
         isVisible={isMenuVisible}
         toggleMenu={toggleMenu}
         setCurrentView={setCurrentView}
+        setCurrentViewPage={setCurrentViewPage}
         currentView={currentView}
+        currentViewPage={currentViewPage}
         todoLists={todoLists}
         setTodoLists={setTodoLists}
       />
-      <Settings
-        isVisible={isSettingsVisible}
-        toggleSettings={toggleSettings}
+      <Settings 
+        isVisible={isSettingsVisible} 
+        toggleSettings={toggleSettings} 
         setCheckStyle={setCheckStyle}
         checkStyle={checkStyle}
+      />
+      <TodoList 
+        currentView={currentView}
+        currentViewPage={currentViewPage} 
+        checkStyle={checkStyle} 
+        setCheckStyle={setCheckStyle}
       />
     </div>
   );

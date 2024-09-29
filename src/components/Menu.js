@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 
-export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoLists, setTodoLists }) => {
+export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoLists, setTodoLists, setCurrentViewPage  }) => {
   const [inputValue, setInputValue] = useState('');
+  const [editIndex, setEditIndex] = useState(null);
+  const [editItemValue, setEditItemValue] = useState('');
 
   const handleAddItem = () => {
     if (inputValue.trim()) {
       const newList = { name: inputValue, todos: [] };
       setTodoLists((prevLists) => [...prevLists, newList]);
       setCurrentView(inputValue);
+      setCurrentViewPage(inputValue);
       setInputValue('');
     }
   };
@@ -16,7 +19,24 @@ export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoL
     const newLists = todoLists.filter((_, i) => i !== index);
     setTodoLists(newLists);
     if (currentView === todoLists[index].name) {
-      setCurrentView('today');
+      setCurrentView(todoLists[0]?.name);
+      setCurrentViewPage(todoLists[0]?.name);
+    }
+  };
+
+  const handleEditItem = (index) => {
+    setEditIndex(index);
+    setEditItemValue(todoLists[index].name);
+  };
+
+  const handleSaveItem = (index) => {
+    if (editItemValue.trim()) {
+      const updatedLists = todoLists.map((list, i) =>
+        i === index ? { ...list, name: editItemValue } : list
+      );
+      setTodoLists(updatedLists);
+      setEditIndex(null);
+      setEditItemValue('');
     }
   };
 
@@ -30,21 +50,44 @@ export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoL
       {isVisible && (
         <div className={`container-menu ${isVisible ? 'visible' : ''}`}>
           <div className='menu'>
-            <div className='menu-item'>
-              <a
-                href="#"
-                onClick={() => setCurrentView("today")}
-                className={currentView === "today" ? "active" : ""}
-              >
-               today
-              </a>
-            </div>
             {todoLists.map((list, index) => (
               <div key={index} className='menu-item'>
-                <a href="#" onClick={() => setCurrentView(list.name)} className={currentView === list.name ? "active" : ""}>
-                  {list.name}
-                </a>
-                <button className='delete-list' onClick={() => handleDeleteItem(index)}>
+                {editIndex === index ? (
+                  <input
+                    className="edit-input"
+                    value={editItemValue}
+                    onChange={(e) => setEditItemValue(e.target.value)}
+                    onBlur={() => handleSaveItem(index)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        handleSaveItem(index);
+                      }
+                    }}
+                    autoFocus
+                  />
+                ) : (
+                  <a onClick={() => {
+                    setCurrentView(list.name); 
+                    setCurrentViewPage(list.name);
+                  }} 
+                  className={currentView === list.name ? "active" : ""}
+                  >
+                    {list.name}
+                  </a>
+                  
+                )}
+                <button 
+                  className='edit-list' 
+                  onClick={() => handleEditItem(index)}
+                  style={{ paddingRight: editIndex === index ? '80px' : '40px' }}
+                >
+                  <i className="fa-solid fa-pencil"></i>
+                </button>
+                <button 
+                  className='delete-list' 
+                  onClick={() => handleDeleteItem(index)}
+                  style={{ display: todoLists.length > 1 ? 'inline' : 'none' }}
+                >
                   <i className="fa-regular fa-trash-can"></i>
                 </button>
               </div>
