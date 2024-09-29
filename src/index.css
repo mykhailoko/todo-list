@@ -226,16 +226,11 @@ header button {
 .stylecat,
 .styleusual {
   transition-duration: 200ms;
-  background-color: transparent;
+  background: transparent;
   border: none;
   cursor: pointer;
   padding: 10px;
   border-radius: 10px;
-}
-
-.stylecat.active,
-.styleusual.active {
-  background-color: #d3d3d3;
 }
 
 .container-list {

@@ -23,8 +23,12 @@ function App() {
   
   const [checkStyle, setCheckStyle] = useState(() => {
     const savedStyle = localStorage.getItem("checkStyle");
-    return savedStyle;
+    return savedStyle ? savedStyle : "usual";
   });
+
+  useEffect(() => {
+    localStorage.setItem("checkStyle", checkStyle);
+  }, [checkStyle]);
 
   useEffect(() => {
     const storedView = localStorage.getItem("currentViewPage");
@@ -38,10 +42,6 @@ function App() {
     localStorage.setItem("currentView", currentView);
     localStorage.setItem("currentViewPage", currentViewPage);
   }, [todoLists, currentView, currentViewPage]);
-
-  useEffect(() => {
-    localStorage.setItem("checkStyle", checkStyle);
-  }, [checkStyle]);
 
   const toggleMenu = () => {
     setIsMenuVisible(!isMenuVisible);
