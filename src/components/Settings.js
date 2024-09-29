@@ -3,7 +3,7 @@ import Cat from "../assets/checkedcat.png";
 import Usual from "../assets/checked.png";
 
 export const Settings = ({ isVisible, toggleSettings, setCheckStyle, checkStyle }) => {
-  const [selectedStyle, setSelectedStyle] = useState("usual");
+  const [selectedStyle, setSelectedStyle] = useState("");
 
   const handleStyleChange = (style) => {
     setCheckStyle(style);
