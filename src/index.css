@@ -82,6 +82,7 @@ header button {
   padding-left: 20px;
   border-radius: 14px;
   background: white;
+  width: 100%;
 }
 
 .todoItem p {
@@ -296,6 +297,7 @@ header button {
 
 .edit-input {
   padding: 5px;
+  width: 50%;
 }
 
 
