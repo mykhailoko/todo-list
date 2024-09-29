@@ -1,13 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cat from "../assets/checkedcat.png";
 import Usual from "../assets/checked.png";
 
 export const Settings = ({ isVisible, toggleSettings, setCheckStyle, checkStyle }) => {
-  const [selectedStyle, setSelectedStyle] = useState("");
+  const [selectedStyle, setSelectedStyle] = useState("usual");
+
+  useEffect(() => {
+    const savedStyle = localStorage.getItem("selectedStyle");
+    if (savedStyle) {
+      setSelectedStyle(savedStyle);
+      setCheckStyle(savedStyle);
+    }
+  }, [setCheckStyle]);
 
   const handleStyleChange = (style) => {
     setCheckStyle(style);
-    setSelectedStyle(style); 
+    setSelectedStyle(style);
+    localStorage.setItem("selectedStyle", style);
   };
 
   return (
@@ -30,7 +39,7 @@ export const Settings = ({ isVisible, toggleSettings, setCheckStyle, checkStyle 
             >
               <img className="styleicon" src={Cat} alt="cats" />
             </button>
-
+    
             <button
               className={`styleusual ${checkStyle === 'usual' ? 'active' : ''}`}
               onClick={() => handleStyleChange('usual')}
