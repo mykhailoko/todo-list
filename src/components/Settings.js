@@ -20,21 +20,6 @@ export const Settings = ({ isVisible, toggleSettings, setCheckStyle, checkStyle 
     };
   }, [isVisible, toggleSettings]);
 
-  useEffect(() => {
-    const handleSwipeCloseSet = (e) => {
-      const touchStartX = e.changedTouches[0].clientX;
-      const touchEndX = e.changedTouches[0].clientX;
-
-      if (touchEndX - touchStartX < -50 && isVisible) {
-        toggleSettings();
-      }
-    };
-
-    document.addEventListener('touchend', handleSwipeCloseSet);
-    return () => {
-      document.removeEventListener('touchend', handleSwipeCloseSet);
-    };
-  }, [isVisible, toggleSettings]);
 
   useEffect(() => {
     const savedStyle = localStorage.getItem("selectedStyle");

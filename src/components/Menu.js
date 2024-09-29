@@ -28,22 +28,6 @@ export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoL
     };
   }, [isVisible, toggleMenu]);
 
-  useEffect(() => {
-    const handleSwipeClose = (e) => {
-      const touchStartX = e.changedTouches[0].clientX;
-      const touchEndX = e.changedTouches[0].clientX;
-
-      if (touchEndX - touchStartX < -50 && isVisible) {
-        toggleMenu();
-      }
-    };
-
-    document.addEventListener('touchend', handleSwipeClose);
-    return () => {
-      document.removeEventListener('touchend', handleSwipeClose);
-    };
-  }, [isVisible, toggleMenu]);
-
   const handleAddItem = () => {
     if (inputValue.trim()) {
       const newList = { name: inputValue, todos: [] };
