@@ -147,7 +147,7 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
         <div className="modal">
           <div className="modal-content">
             <p>Delete todo?</p>
-            <button onClick={handleDeleteTodo}>Да</button>
+            <button onClick={() => handleDeleteTodo(todoToDelete)}>Да</button>
             <button onClick={closeDeleteModal}>Нет</button>
           </div>
         </div>
