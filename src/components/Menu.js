@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoLists, setTodoLists, setCurrentViewPage }) => {
+export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoLists, setTodoLists }) => {
   const [inputValue, setInputValue] = useState('');
   const [editIndex, setEditIndex] = useState(null);
   const [editItemValue, setEditItemValue] = useState('');
@@ -33,7 +33,6 @@ export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoL
       const newList = { name: inputValue, todos: [] };
       setTodoLists((prevLists) => [...prevLists, newList]);
       setCurrentView(inputValue);
-      setCurrentViewPage(inputValue);
       setInputValue('');
     }
   };
@@ -43,7 +42,6 @@ export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoL
     setTodoLists(newLists);
     if (currentView === todoLists[index].name) {
       setCurrentView(todoLists[0]?.name);
-      setCurrentViewPage(todoLists[0]?.name);
     }
   };
 
@@ -76,7 +74,6 @@ export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoL
             <div className='menu-item'>
               <a onClick={() => {
                 setCurrentView("Week");
-                setCurrentViewPage("Week");
               }} 
               className={currentView === "Week" ? "active" : ""}>
                 Week
@@ -100,7 +97,6 @@ export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoL
                 ) : (
                   <a onClick={() => {
                     setCurrentView(list.name); 
-                    setCurrentViewPage(list.name);
                   }} 
                   className={currentView === list.name ? "active" : ""}>
                     {list.name}

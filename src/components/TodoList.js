@@ -1,79 +1,75 @@
-import { useState, useEffect } from "react";
-import Checked from '../assets/checked.png';
-import Unchecked from '../assets/unchecked.png';
-import CheckedCat from '../assets/checkedcat.png';
-import UncheckedCat from '../assets/uncheckedcat.png';
-import { Settings } from './Settings';
+import { useState } from "react";
+import Checked from "../assets/checked.png";
+import Unchecked from "../assets/unchecked.png";
+import CheckedCat from "../assets/checkedcat.png";
+import UncheckedCat from "../assets/uncheckedcat.png";
 
-export default function TodoList({ currentView, checkStyle, setCheckStyle }) {
-  const LOCAL_STORAGE_KEY = `todos_${currentView}`;
-  const [todos, setTodos] = useState([]);
+export default function TodoList({
+  currentView,
+  todoLists,
+  handleAddTodo,
+  handleDeleteTodo,
+  checkStyle,
+}) {
+  const currentList = todoLists.find((list) => list.name === currentView);
   const [todoValue, setTodoValue] = useState("");
-  const [settingsVisible, setSettingsVisible] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [editTodoValue, setEditTodoValue] = useState("");
+  const [todoToDelete, setTodoToDelete] = useState(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
-  useEffect(() => {
-    const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
-    setTodos(storedTodos ? JSON.parse(storedTodos) : []);
-  }, [currentView]);
-
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
-  }, [todos, LOCAL_STORAGE_KEY]);
-  
-  const handleAddTodos = () => {
+  const handleAdd = () => {
     if (todoValue.trim()) {
-      const newTodos = [...todos, { text: todoValue, checked: false }];
-      setTodos(newTodos);
+      handleAddTodo(currentView, { text: todoValue, checked: false });
       setTodoValue("");
     }
   };
 
-  const handleDeleteTodo = (index) => {
-    const newTodos = todos.filter((_, i) => i !== index);
-    setTodos(newTodos);
-  };
-
   const handleEditTodo = (index) => {
     setEditIndex(index);
-    setEditTodoValue(todos[index].text);
+    setEditTodoValue(currentList.todos[index].text);
   };
 
   const handleSaveTodo = (index) => {
     if (editTodoValue.trim()) {
-      const updatedTodos = todos.map((todo, i) =>
-        i === index ? { ...todo, text: editTodoValue } : todo
-      );
-      setTodos(updatedTodos);
+      currentList.todos[index].text = editTodoValue;
       setEditIndex(null);
     }
   };
 
   const toggleCheck = (index) => {
-    const newTodos = todos.map((todo, i) =>
+    const newTodos = currentList.todos.map((todo, i) =>
       i === index ? { ...todo, checked: !todo.checked } : todo
     );
-    setTodos(newTodos);
+    handleAddTodo(currentView, newTodos);
   };
 
   const getCheckImages = (checked) => {
-    if (checkStyle === 'cat') {
+    if (checkStyle === "cat") {
       return { checkedImg: CheckedCat, uncheckedImg: UncheckedCat };
     }
     return { checkedImg: Checked, uncheckedImg: Unchecked };
   };
 
+  const confirmDeleteTodo = (index) => {
+    setTodoToDelete(index);
+    setShowDeleteConfirm(true);
+  };
+
+  const handleConfirmDelete = () => {
+    handleDeleteTodo(currentView, todoToDelete);
+    setShowDeleteConfirm(false);
+    setTodoToDelete(null);
+  };
+
+  const handleCancelDelete = () => {
+    setShowDeleteConfirm(false);
+    setTodoToDelete(null);
+  };
+
   return (
     <div>
       <h1 className="title">To-Do list {currentView}</h1>
-
-      <Settings 
-        isVisible={settingsVisible} 
-        toggleSettings={() => setSettingsVisible(!settingsVisible)} 
-        setCheckStyle={setCheckStyle}
-      />
-      
       <header className="usual-header">
         <input
           className="input-header"
@@ -81,16 +77,21 @@ export default function TodoList({ currentView, checkStyle, setCheckStyle }) {
           onChange={(e) => setTodoValue(e.target.value)}
           placeholder="Enter todo"
         />
-        <button className="header-button" onClick={handleAddTodos}>Add</button>
+        <button className="header-button" onClick={handleAdd}>
+          Add
+        </button>
       </header>
-      
+
       <ul className="main">
-        {todos.map((todo, index) => {
+        {currentList.todos.map((todo, index) => {
           const { checkedImg, uncheckedImg } = getCheckImages(todo.checked);
-          
+
           return (
             <li key={index} className="todoItem">
-              <button className="checkbutton" onClick={() => toggleCheck(index)}>
+              <button
+                className="checkbutton"
+                onClick={() => toggleCheck(index)}
+              >
                 <img
                   className="check"
                   src={todo.checked ? checkedImg : uncheckedImg}
@@ -105,7 +106,7 @@ export default function TodoList({ currentView, checkStyle, setCheckStyle }) {
                   onChange={(e) => setEditTodoValue(e.target.value)}
                   onBlur={() => handleSaveTodo(index)}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
+                    if (e.key === "Enter") {
                       handleSaveTodo(index);
                     }
                   }}
@@ -113,18 +114,20 @@ export default function TodoList({ currentView, checkStyle, setCheckStyle }) {
                 />
               ) : (
                 <p
-                  style={{ textDecoration: todo.checked ? 'line-through' : 'none' }}
+                  style={{
+                    textDecoration: todo.checked ? "line-through" : "none",
+                  }}
                   onClick={() => handleEditTodo(index)}
                 >
                   {todo.text}
                 </p>
               )}
-              
+
               <div className="actionsContainer">
                 <button onClick={() => handleEditTodo(index)}>
                   <i className="fa-solid fa-pencil"></i>
                 </button>
-                <button onClick={() => handleDeleteTodo(index)}>
+                <button onClick={() => confirmDeleteTodo(index)}>
                   <i className="fa-regular fa-trash-can"></i>
                 </button>
               </div>
@@ -132,6 +135,16 @@ export default function TodoList({ currentView, checkStyle, setCheckStyle }) {
           );
         })}
       </ul>
+
+      {showDeleteConfirm && (
+        <div className="modal">
+          <div className="modal-content">
+            <p>Delete todo?</p>
+            <button onClick={handleConfirmDelete}>Yes</button>
+            <button onClick={handleCancelDelete}>No</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

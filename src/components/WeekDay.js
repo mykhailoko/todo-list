@@ -14,6 +14,8 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
   const [editIndex, setEditIndex] = useState(null);
   const [editTodoValue, setEditTodoValue] = useState("");
   const [showInput, setShowInput] = useState(false); 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [todoToDelete, setTodoToDelete] = useState(null);
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
@@ -31,6 +33,7 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
   const handleDeleteTodo = (index) => {
     const newTodos = todos.filter((_, i) => i !== index);
     setTodos(newTodos);
+    setShowDeleteModal(false);
   };
 
   const handleEditTodo = (index) => {
@@ -60,6 +63,16 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
       return { checkedImg: CheckedCat, uncheckedImg: UncheckedCat };
     }
     return { checkedImg: Checked, uncheckedImg: Unchecked };
+  };
+
+  const openDeleteModal = (index) => {
+    setTodoToDelete(index);
+    setShowDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setShowDeleteModal(false);
+    setTodoToDelete(null);
   };
 
   return (
@@ -121,7 +134,7 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
                 <button onClick={() => handleEditTodo(index)}>
                   <i className="fa-solid fa-pencil"></i>
                 </button>
-                <button onClick={() => handleDeleteTodo(index)}>
+                <button onClick={() => openDeleteModal(index)}>
                   <i className="fa-regular fa-trash-can"></i>
                 </button>
               </div>
@@ -129,6 +142,16 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
           );
         })}
       </ul>
+
+      {showDeleteModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <p>Delete todo?</p>
+            <button onClick={handleDeleteTodo}>Да</button>
+            <button onClick={closeDeleteModal}>Нет</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
