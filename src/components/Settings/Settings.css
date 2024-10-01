@@ -1,0 +1,46 @@
+#settingsIcon {
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 2;
+  transition: color 0.3s;
+}
+
+.settings-menu {
+  background-color: rgba(255, 255, 255);
+  width: 280px;
+  height: 100vh;
+  position: fixed;
+  bottom: 0;
+  right: 0; 
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 1.0s ease, transform 1.0s ease; 
+}
+
+.settings-menu.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.buttons-style {
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.styleicon {
+  width: 40px;
+  margin: 20px;
+}
+
+.stylecat,
+.styleusual {
+  transition-duration: 200ms;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+}

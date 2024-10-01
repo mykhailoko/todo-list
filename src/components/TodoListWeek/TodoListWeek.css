@@ -1,0 +1,11 @@
+.title-week-main {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  text-align: center;
+  line-height: 1.7;
+  padding-right: 35px;
+  padding-left: 35px;
+  margin-top: 40px;
+  color: white;
+}

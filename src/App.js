@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
-import { Menu } from "./components/Menu";
-import { Settings } from "./components/Settings";
-import TodoList from "./components/TodoList";
-import TodoListWeek from "./components/TodoListWeek";
+import { NavBar } from "./components/NavBar/NavBar";
+import { Menu } from "./components/Menu/Menu";
+import { Settings } from "./components/Settings/Settings";
+import TodoList from "./components/TodoList/TodoList";
+import TodoListWeek from "./components/TodoListWeek/TodoListWeek";
+import './App.css';
 
 function App() {
   const [todoLists, setTodoLists] = useState(() => {
     const storedLists = localStorage.getItem("todoLists");
     return storedLists
       ? JSON.parse(storedLists)
-      : [{ name: "List 1", todos: [] }, { name: "List 2", todos: [] }];
+      : [{ name: "To-Do List 1", todos: [] }, { name: "To-Do List 2", todos: [] }];
   });
 
   const [isMenuVisible, setIsMenuVisible] = useState(false);
@@ -17,7 +19,7 @@ function App() {
 
   const [currentView, setCurrentView] = useState(() => {
     const storedView = localStorage.getItem("currentView");
-    return storedView || "List 1";
+    return storedView || "To-Do List 1";
   });
 
   const [checkStyle, setCheckStyle] = useState(() => {
@@ -68,20 +70,38 @@ function App() {
 
   return (
     <div className="container">
-      <Menu
-        isVisible={isMenuVisible}
+      <NavBar 
+        isMenuVisible={isMenuVisible}
         toggleMenu={toggleMenu}
+        isSettingsVisible={isSettingsVisible}
+        toggleSettings={toggleSettings}
         setCurrentView={setCurrentView}
         currentView={currentView}
         todoLists={todoLists}
         setTodoLists={setTodoLists}
-      />
-      <Settings
-        isVisible={isSettingsVisible}
-        toggleSettings={toggleSettings}
-        setCheckStyle={setCheckStyle}
         checkStyle={checkStyle}
+        setCheckStyle={setCheckStyle}
       />
+  
+      {isMenuVisible && (
+        <Menu
+          isVisible={isMenuVisible}
+          toggleMenu={toggleMenu}
+          setCurrentView={setCurrentView}
+          currentView={currentView}
+          todoLists={todoLists}
+          setTodoLists={setTodoLists}
+        />
+      )}
+
+      {isSettingsVisible && (
+        <Settings
+          isVisible={isSettingsVisible}
+          toggleSettings={toggleSettings}
+          setCheckStyle={setCheckStyle}
+          checkStyle={checkStyle}
+        />
+      )}
 
       {currentView === "Week" ? (
         <TodoListWeek
@@ -96,6 +116,7 @@ function App() {
           handleDeleteTodo={handleDeleteTodo}
           checkStyle={checkStyle}
           setCheckStyle={setCheckStyle}
+          setTodoLists={setTodoLists}
         />
       )}
     </div>

@@ -1,6 +1,7 @@
-import { WeekDay } from "./WeekDay";
+import { WeekDay } from "../WeekDay/WeekDay";
+import './TodoListWeek.css'
 
-export default function TodoListWeek({ checkStyle, setCheckStyle }) {
+export default function TodoListWeek({ checkStyle, setCheckStyle  }) {
 
   return (
     <div>

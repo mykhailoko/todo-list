@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './Menu.css';
 
 export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoLists, setTodoLists }) => {
   const [inputValue, setInputValue] = useState('');
@@ -9,8 +10,8 @@ export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoL
     const handleClickOutside = (e) => {
       const menu = document.querySelector('.menu');
       const containerMenu = document.querySelector('.container-menu');
-      const barIcon = document.getElementById('bar-icon');
-  
+      const barIcon = document.getElementById('barIcon');
+
       if (
         isVisible &&
         menu &&
@@ -21,7 +22,7 @@ export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoL
         toggleMenu();
       }
     };
-  
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -41,7 +42,7 @@ export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoL
     const newLists = todoLists.filter((_, i) => i !== index);
     setTodoLists(newLists);
     if (currentView === todoLists[index].name) {
-      setCurrentView(todoLists[0]?.name);
+      setCurrentView(todoLists[0]?.name || "To-Do List 1");
     }
   };
 
@@ -63,22 +64,9 @@ export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoL
 
   return (
     <div>
-      <i className={isVisible ? "fa-solid fa-xmark" : "fa-solid fa-bars"}
-         id='bar-icon'
-         onClick={toggleMenu}
-         style={{ color: isVisible ? '#202124' : 'white' }}
-      ></i>
       {isVisible && (
         <div className={`container-menu ${isVisible ? 'visible' : ''}`}>
           <div className='menu'>
-            <div className='menu-item'>
-              <a onClick={() => {
-                setCurrentView("Week");
-              }} 
-              className={currentView === "Week" ? "active" : ""}>
-                Week
-              </a>
-            </div>
             {todoLists.map((list, index) => (
               <div key={index} className='menu-item'>
                 {editIndex === index ? (
@@ -95,17 +83,14 @@ export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoL
                     autoFocus
                   />
                 ) : (
-                  <a onClick={() => {
-                    setCurrentView(list.name); 
-                  }} 
-                  className={currentView === list.name ? "active" : ""}>
+                  <a onClick={() => setCurrentView(list.name)} 
+                     className={currentView === list.name ? "active" : ""}>
                     {list.name}
                   </a>
                 )}
                 <button 
                   className='edit-list' 
                   onClick={() => handleEditItem(index)}
-                  style={{ paddingRight: editIndex === index ? '80px' : '40px' }}
                 >
                   <i className="fa-solid fa-pencil"></i>
                 </button>

@@ -1,0 +1,28 @@
+.week-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 600px;
+  width: 80%;
+  margin: 20px auto;
+}
+
+.week-title {
+  line-height: 1.7;
+  color: white;
+  font-size: 22px;
+}
+
+.week-header-button {
+  border: none;
+  outline: none;
+  padding: 14px 15px;
+  background: #ffbb33;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 100px;
+}
+
+.day {
+  margin: 80px 0px;
+}
