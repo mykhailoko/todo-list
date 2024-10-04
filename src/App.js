@@ -4,6 +4,7 @@ import { Menu } from "./components/Menu/Menu";
 import { Settings } from "./components/Settings/Settings";
 import TodoList from "./components/TodoList/TodoList";
 import TodoListWeek from "./components/TodoListWeek/TodoListWeek";
+import { Trash } from "./components/Trash/Trash";
 import './App.css';
 
 function App() {
@@ -16,7 +17,6 @@ function App() {
 
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
-
   const [currentView, setCurrentView] = useState(() => {
     const storedView = localStorage.getItem("currentView");
     return storedView || "To-Do List 1";
@@ -25,6 +25,11 @@ function App() {
   const [checkStyle, setCheckStyle] = useState(() => {
     const savedStyle = localStorage.getItem("checkStyle");
     return savedStyle ? savedStyle : "usual";
+  });
+
+  const [deletedTodos, setDeletedTodos] = useState(() => {
+    const storedDeleted = localStorage.getItem("deletedTodos");
+    return storedDeleted ? JSON.parse(storedDeleted) : [];
   });
 
   useEffect(() => {
@@ -38,6 +43,10 @@ function App() {
   useEffect(() => {
     localStorage.setItem("currentView", currentView);
   }, [currentView]);
+
+  useEffect(() => {
+    localStorage.setItem("deletedTodos", JSON.stringify(deletedTodos));
+  }, [deletedTodos]);
 
   const toggleMenu = () => {
     setIsMenuVisible(!isMenuVisible);
@@ -66,6 +75,9 @@ function App() {
       return list;
     });
     setTodoLists(updatedLists);
+
+    const deletedTodo = todoLists.find((list) => list.name === listName).todos[todoIndex];
+    setDeletedTodos([...deletedTodos, deletedTodo]);
   };
 
   return (
@@ -100,6 +112,8 @@ function App() {
           toggleSettings={toggleSettings}
           setCheckStyle={setCheckStyle}
           checkStyle={checkStyle}
+          deletedTodos={deletedTodos}
+          setDeletedTodos={setDeletedTodos} // Передаем функцию для обновления deletedTodos
         />
       )}
 
@@ -108,6 +122,8 @@ function App() {
           checkStyle={checkStyle}
           setCheckStyle={setCheckStyle}
         />
+      ) : currentView === "Trash" ? (
+        <Trash deletedTodos={deletedTodos} setDeletedTodos={setDeletedTodos} /> // Также передаем setDeletedTodos
       ) : (
         <TodoList
           currentView={currentView}

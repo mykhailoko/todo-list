@@ -14,6 +14,7 @@
   right: 0; 
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   z-index: 1;
+  padding-bottom: 50px;
 
   opacity: 0;
   transform: translateY(-10px);
@@ -43,4 +44,16 @@
   cursor: pointer;
   padding: 10px;
   border-radius: 10px;
+}
+
+.trash {
+  position: fixed;
+  font-size: 30px;
+  transition-duration: 200ms;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 7px;
+  bottom: 20px;
+  right: 20px;
 }

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Cat from "../../assets/checkedcat.png";
 import Usual from "../../assets/checked.png";
+import { Trash } from "../Trash/Trash";
 import './Settings.css';
 
-export const Settings = ({ isVisible, toggleSettings, setCheckStyle, checkStyle, completedCount  }) => {
+export const Settings = ({ isVisible, toggleSettings, setCheckStyle, checkStyle, completedCount, deletedTodos, setDeletedTodos }) => {
   const [selectedStyle, setSelectedStyle] = useState("usual");
+  const [showTrash, setShowTrash] = useState(false);
 
   useEffect(() => {
     const handleClickOutsideSet = (e) => {
@@ -35,6 +37,16 @@ export const Settings = ({ isVisible, toggleSettings, setCheckStyle, checkStyle,
     localStorage.setItem("selectedStyle", style);
   };
 
+  const handleTrashClick = () => {
+    setShowTrash(!showTrash);
+  };
+
+  // Функция удаления элемента из deletedTodos
+  const handleDeleteTodo = (index) => {
+    const newDeletedTodos = deletedTodos.filter((_, i) => i !== index);
+    setDeletedTodos(newDeletedTodos);
+  };
+
   return (
     <div>
       {isVisible && (
@@ -60,6 +72,10 @@ export const Settings = ({ isVisible, toggleSettings, setCheckStyle, checkStyle,
               <img className="styleicon" src={Usual} alt="usual" />
             </button>
           </div>
+          <button className="trash" onClick={handleTrashClick}>
+            <i className="fa-solid fa-trash"></i>
+          </button>
+          {showTrash && <div className="trash-container"><Trash deletedTodos={deletedTodos} onDeleteTodo={handleDeleteTodo} /></div>}
         </div>
       )}
     </div>

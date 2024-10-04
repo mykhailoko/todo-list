@@ -1,0 +1,53 @@
+.title-trash {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    text-align: center;
+    line-height: 1.7;
+    margin-top: 40px;
+    color: #202124;
+    bottom: 280px;
+    left: 50%;              
+    transform: translateX(-50%); 
+}
+
+.main-trash {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    width: 80%;
+    margin: 0 auto;
+    gap: 8px;
+    max-height: 200px;
+    overflow-y: auto; 
+    bottom: 80px;
+    left: 50%;              
+    transform: translateX(-50%);
+}
+
+.todoItem-trash {
+    display: flex;
+    justify-content: space-between;;
+    align-items: center;
+    padding: 12px;
+    padding-left: 20px;
+    border-radius: 14px;
+    background: #202124;
+    width: 100%;
+}
+
+.todoItem-trash p {
+    color: white;
+}
+
+.todoItem-trash button {
+    font-size: 14px;
+    transition-duration: 200ms;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 7px;
+    color: white;
+}
