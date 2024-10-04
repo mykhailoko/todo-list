@@ -57,10 +57,16 @@ export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoL
         i === index ? { ...list, name: editItemValue } : list
       );
       setTodoLists(updatedLists);
+      
+      if (currentView === todoLists[index].name) {
+        setCurrentView(editItemValue);
+      }
+      
       setEditIndex(null);
       setEditItemValue('');
     }
   };
+  
 
   return (
     <div>

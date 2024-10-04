@@ -45,8 +45,7 @@ export default function TodoList({
     const newTodos = currentList.todos.map((todo, i) =>
       i === index ? { ...todo, checked: !todo.checked } : todo
     );
-  
-    // Здесь мы просто обновляем текущий список задач без добавления нового
+
     const updatedLists = todoLists.map((list) => {
       if (list.name === currentView) {
         return { ...list, todos: newTodos };
@@ -54,7 +53,6 @@ export default function TodoList({
       return list;
     });
   
-    // Обновляем состояние todoLists в App.js
     setTodoLists(updatedLists);
   };
 
