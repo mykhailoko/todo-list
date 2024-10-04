@@ -163,8 +163,51 @@
   opacity: 0.7;
 }
 
+.reminder-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.reminder-main {
+  background-color: white;
+  padding: 40px 40px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.reminder {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.reminder-main img {
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reminder-main button {
+  border: none;
+  outline: none;
+  padding: 15px 80px;
+  background: #ffbb33;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 100px;
+  margin: 0 auto;
+}
+
 @media only screen and (max-width: 900px) {
     .title {
-      font-size: 24px;
+      font-size: 30px;
     }
 }

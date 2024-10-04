@@ -113,7 +113,7 @@ function App() {
           setCheckStyle={setCheckStyle}
           checkStyle={checkStyle}
           deletedTodos={deletedTodos}
-          setDeletedTodos={setDeletedTodos} // Передаем функцию для обновления deletedTodos
+          setDeletedTodos={setDeletedTodos} 
         />
       )}
 
@@ -123,7 +123,7 @@ function App() {
           setCheckStyle={setCheckStyle}
         />
       ) : currentView === "Trash" ? (
-        <Trash deletedTodos={deletedTodos} setDeletedTodos={setDeletedTodos} /> // Также передаем setDeletedTodos
+        <Trash deletedTodos={deletedTodos} setDeletedTodos={setDeletedTodos} />
       ) : (
         <TodoList
           currentView={currentView}

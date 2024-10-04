@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Checked from "../../assets/checked.png";
 import Unchecked from "../../assets/unchecked.png";
 import CheckedCat from "../../assets/checkedcat.png";
 import UncheckedCat from "../../assets/uncheckedcat.png";
-import './TodoList.css'
+import ChillCat from "../../assets/chillcat.png";
+import './TodoList.css';
 
 export default function TodoList({
   currentView,
@@ -17,15 +18,30 @@ export default function TodoList({
   const [todoValue, setTodoValue] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [editTodoValue, setEditTodoValue] = useState("");
-  const [showInput, setShowInput] = useState(false); 
+  const [showInput, setShowInput] = useState(false);
   const [todoToDelete, setTodoToDelete] = useState(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showReminder, setShowReminder] = useState(false);
+  const [addedTodosCount, setAddedTodosCount] = useState(() => {
+    // Получаем сохраненное значение из localStorage или 0, если оно отсутствует
+    return parseInt(localStorage.getItem("addedTodosCount")) || 0;
+  });
+
+  useEffect(() => {
+    // Сохраняем значение в localStorage при изменении addedTodosCount
+    localStorage.setItem("addedTodosCount", addedTodosCount);
+    
+    if (addedTodosCount === 5) {
+      setShowReminder(true);
+    }
+  }, [addedTodosCount]);
 
   const handleAdd = () => {
     if (todoValue.trim()) {
       handleAddTodo(currentView, { text: todoValue, checked: false });
       setTodoValue("");
       setShowInput(false);
+      setAddedTodosCount(addedTodosCount + 1);
     }
   };
 
@@ -52,7 +68,7 @@ export default function TodoList({
       }
       return list;
     });
-  
+
     setTodoLists(updatedLists);
   };
 
@@ -72,6 +88,7 @@ export default function TodoList({
     handleDeleteTodo(currentView, todoToDelete);
     setShowDeleteConfirm(false);
     setTodoToDelete(null);
+    setAddedTodosCount((prevCount) => prevCount > 0 ? prevCount - 1 : 0); // Уменьшаем счетчик добавленных задач
   };
 
   const handleCancelDelete = () => {
@@ -82,10 +99,24 @@ export default function TodoList({
   return (
     <div>
       <h1 className="title">{currentView}</h1>
+
+      {showReminder && (
+        <div className="reminder-container">
+          <div className="reminder-main">
+            <p className="reminder">Не забудьте отдохнуть!</p>
+            <img src={ChillCat} alt="cute-cat" />
+            <button onClick={() => {
+              setShowReminder(false);
+              setAddedTodosCount(0); 
+            }}>OK</button>
+          </div>
+        </div>
+      )}
+
       <div className="add-button-container">
         <p>add-button</p>
-        <button 
-          className="add-header-button" 
+        <button
+          className="add-header-button"
           onClick={() => setShowInput(!showInput)}
         >
           <i className={showInput ? "fa-solid fa-xmark" : "fa-solid fa-plus"} style={{ color: 'white', fontSize: '24px' }}></i>

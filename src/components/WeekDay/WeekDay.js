@@ -4,9 +4,11 @@ import Checked from '../../assets/checked.png';
 import Unchecked from '../../assets/unchecked.png';
 import CheckedCat from '../../assets/checkedcat.png';
 import UncheckedCat from '../../assets/uncheckedcat.png';
+import ChillCat from "../../assets/chillcat.png";
 
-export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle  }) => {
+export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
   const LOCAL_STORAGE_KEY = `todosWeek_${dayTitle}`;
+  const COUNT_KEY = `addedTodosCount_${dayTitle}`; // Ключ для сохранения количества добавленных задач
   const [todos, setTodos] = useState(() => {
     const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
     return storedTodos ? JSON.parse(storedTodos) : [];
@@ -14,14 +16,28 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle  }) => {
   const [todoValue, setTodoValue] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [editTodoValue, setEditTodoValue] = useState("");
-  const [showInput, setShowInput] = useState(false); 
+  const [showInput, setShowInput] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [todoToDelete, setTodoToDelete] = useState(null);
-
+  const [showReminder, setShowReminder] = useState(false);
+  const [addedTodosCount, setAddedTodosCount] = useState(() => {
+    const storedCount = localStorage.getItem(COUNT_KEY);
+    return storedCount ? parseInt(storedCount, 10) : 0; // Установка начального значения из localStorage
+  });
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
   }, [todos, LOCAL_STORAGE_KEY]);
+
+  useEffect(() => {
+    localStorage.setItem(COUNT_KEY, addedTodosCount); // Сохранение добавленного количества в localStorage
+  }, [addedTodosCount, COUNT_KEY]);
+
+  useEffect(() => {
+    if (addedTodosCount === 5) {
+      setShowReminder(true);
+    }
+  }, [addedTodosCount]);
 
   const handleAddTodos = () => {
     if (todoValue.trim()) {
@@ -29,6 +45,7 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle  }) => {
       setTodos(newTodos);
       setTodoValue("");
       setShowInput(false);
+      setAddedTodosCount(prevCount => prevCount + 1);
     }
   };
 
@@ -154,6 +171,21 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle  }) => {
           </div>
         </div>
       )}
+
+      {showReminder && (
+        <div className="reminder-container">
+          <div className="reminder-main">
+            <p className="reminder">Не забудьте отдохнуть!</p>
+            <img src={ChillCat} alt="cute-cat" />
+            <button onClick={() => {
+              setShowReminder(false);
+              setAddedTodosCount(0);
+            }}>
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
-}
+};
