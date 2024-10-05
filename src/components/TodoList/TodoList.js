@@ -23,18 +23,23 @@ export default function TodoList({
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showReminder, setShowReminder] = useState(false);
   const [addedTodosCount, setAddedTodosCount] = useState(() => {
-    // Получаем сохраненное значение из localStorage или 0, если оно отсутствует
     return parseInt(localStorage.getItem("addedTodosCount")) || 0;
+  });
+  const [completedTodosCount, setCompletedTodosCount] = useState(() => {
+    return parseInt(localStorage.getItem("completedTodosCount")) || 0;
   });
 
   useEffect(() => {
-    // Сохраняем значение в localStorage при изменении addedTodosCount
     localStorage.setItem("addedTodosCount", addedTodosCount);
     
-    if (addedTodosCount === 5) {
+    if (addedTodosCount === 5 || completedTodosCount === 5) {
       setShowReminder(true);
     }
-  }, [addedTodosCount]);
+  }, [addedTodosCount, completedTodosCount]);
+
+  useEffect(() => {
+    localStorage.setItem("completedTodosCount", completedTodosCount);
+  }, [completedTodosCount]);
 
   const handleAdd = () => {
     if (todoValue.trim()) {
@@ -70,6 +75,9 @@ export default function TodoList({
     });
 
     setTodoLists(updatedLists);
+
+    const completedTasksCount = newTodos.filter(todo => todo.checked).length;
+    setCompletedTodosCount(completedTasksCount);
   };
 
   const getCheckImages = (checked) => {
@@ -88,7 +96,7 @@ export default function TodoList({
     handleDeleteTodo(currentView, todoToDelete);
     setShowDeleteConfirm(false);
     setTodoToDelete(null);
-    setAddedTodosCount((prevCount) => prevCount > 0 ? prevCount - 1 : 0); // Уменьшаем счетчик добавленных задач
+    setAddedTodosCount((prevCount) => prevCount > 0 ? prevCount - 1 : 0);
   };
 
   const handleCancelDelete = () => {
@@ -107,7 +115,8 @@ export default function TodoList({
             <img src={ChillCat} alt="cute-cat" />
             <button onClick={() => {
               setShowReminder(false);
-              setAddedTodosCount(0); 
+              setAddedTodosCount(0);
+              setCompletedTodosCount(0);
             }}>OK</button>
           </div>
         </div>

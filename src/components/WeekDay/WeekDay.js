@@ -8,7 +8,8 @@ import ChillCat from "../../assets/chillcat.png";
 
 export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
   const LOCAL_STORAGE_KEY = `todosWeek_${dayTitle}`;
-  const COUNT_KEY = `addedTodosCount_${dayTitle}`; // Ключ для сохранения количества добавленных задач
+  const COUNT_KEY = `addedTodosCount_${dayTitle}`; 
+  const COMPLETED_COUNT_KEY = `completedTodosCount_${dayTitle}`; 
   const [todos, setTodos] = useState(() => {
     const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
     return storedTodos ? JSON.parse(storedTodos) : [];
@@ -22,7 +23,11 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
   const [showReminder, setShowReminder] = useState(false);
   const [addedTodosCount, setAddedTodosCount] = useState(() => {
     const storedCount = localStorage.getItem(COUNT_KEY);
-    return storedCount ? parseInt(storedCount, 10) : 0; // Установка начального значения из localStorage
+    return storedCount ? parseInt(storedCount, 10) : 0;
+  });
+  const [completedTodosCount, setCompletedTodosCount] = useState(() => {
+    const storedCompletedCount = localStorage.getItem(COMPLETED_COUNT_KEY);
+    return storedCompletedCount ? parseInt(storedCompletedCount, 10) : 0;
   });
 
   useEffect(() => {
@@ -30,14 +35,18 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
   }, [todos, LOCAL_STORAGE_KEY]);
 
   useEffect(() => {
-    localStorage.setItem(COUNT_KEY, addedTodosCount); // Сохранение добавленного количества в localStorage
+    localStorage.setItem(COUNT_KEY, addedTodosCount);
   }, [addedTodosCount, COUNT_KEY]);
 
   useEffect(() => {
-    if (addedTodosCount === 5) {
+    localStorage.setItem(COMPLETED_COUNT_KEY, completedTodosCount);
+  }, [completedTodosCount, COMPLETED_COUNT_KEY]);
+
+  useEffect(() => {
+    if (addedTodosCount === 5 || completedTodosCount === 5) {
       setShowReminder(true);
     }
-  }, [addedTodosCount]);
+  }, [addedTodosCount, completedTodosCount]);
 
   const handleAddTodos = () => {
     if (todoValue.trim()) {
@@ -50,6 +59,10 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
   };
 
   const handleDeleteTodo = (index) => {
+    const todo = todos[index];
+    if (todo.checked) {
+      setCompletedTodosCount(prevCount => prevCount - 1); 
+    }
     const newTodos = todos.filter((_, i) => i !== index);
     setTodos(newTodos);
     setShowDeleteModal(false);
@@ -71,9 +84,18 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
   };
 
   const toggleCheck = (index) => {
-    const newTodos = todos.map((todo, i) =>
-      i === index ? { ...todo, checked: !todo.checked } : todo
-    );
+    const newTodos = todos.map((todo, i) => {
+      if (i === index) {
+        const newCheckedStatus = !todo.checked;
+        if (newCheckedStatus) {
+          setCompletedTodosCount(prevCount => prevCount + 1); 
+        } else {
+          setCompletedTodosCount(prevCount => prevCount - 1);
+        }
+        return { ...todo, checked: newCheckedStatus };
+      }
+      return todo;
+    });
     setTodos(newTodos);
   };
 
