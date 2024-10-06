@@ -45,15 +45,3 @@
   padding: 10px;
   border-radius: 10px;
 }
-
-.trash {
-  position: fixed;
-  font-size: 30px;
-  transition-duration: 200ms;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  padding: 7px;
-  bottom: 20px;
-  right: 20px;
-}

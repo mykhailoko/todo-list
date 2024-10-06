@@ -4,7 +4,6 @@ import { Menu } from "./components/Menu/Menu";
 import { Settings } from "./components/Settings/Settings";
 import TodoList from "./components/TodoList/TodoList";
 import TodoListWeek from "./components/TodoListWeek/TodoListWeek";
-import { Trash } from "./components/Trash/Trash";
 import { Tracker } from "./components/Tracker/Tracker";
 import './App.css';
 
@@ -123,8 +122,6 @@ function App() {
           checkStyle={checkStyle}
           setCheckStyle={setCheckStyle}
         />
-      ) : currentView === "Trash" ? (
-        <Trash deletedTodos={deletedTodos} setDeletedTodos={setDeletedTodos} />
       ) : currentView === "Tracker" ? (
         <Tracker />
       ) : (
