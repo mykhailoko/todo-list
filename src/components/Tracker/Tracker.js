@@ -4,7 +4,7 @@ import './Tracker.css';
 export const Tracker = () => {
   const months = [
     { name: 'Январь', days: 31 },
-    { name: 'Февраль', days: 28 }, // Не учитывается високосный год
+    { name: 'Февраль', days: 28 },
     { name: 'Март', days: 31 },
     { name: 'Апрель', days: 30 },
     { name: 'Май', days: 31 },
@@ -17,23 +17,20 @@ export const Tracker = () => {
     { name: 'Декабрь', days: 31 }
   ];
 
-  // Загрузка выбранного месяца из localStorage
   const savedMonthIndex = localStorage.getItem('selectedMonthIndex');
   const initialMonthIndex = savedMonthIndex ? parseInt(savedMonthIndex, 10) : new Date().getMonth();
 
   const [selectedMonthIndex, setSelectedMonthIndex] = useState(initialMonthIndex);
 
-  // Структура задач по месяцам
   const [tasksByMonth, setTasksByMonth] = useState(() => {
     const savedTasks = localStorage.getItem('tasksByMonth');
     if (savedTasks) {
       return JSON.parse(savedTasks);
     } else {
-      // Если задач нет в localStorage, добавляем по одной пустой задаче для каждого месяца
       return months.reduce((acc, _, index) => {
         acc[index] = [
           { name: '', checkboxes: Array(months[index].days).fill(false), id: Date.now() + index }
-        ]; // Одна пустая задача с пустыми чекбоксами
+        ];
         return acc;
       }, {});
     }
@@ -43,7 +40,6 @@ export const Tracker = () => {
     localStorage.setItem('tasksByMonth', JSON.stringify(tasksByMonth));
   }, [tasksByMonth]);
 
-  // Сохранение выбранного месяца
   useEffect(() => {
     localStorage.setItem('selectedMonthIndex', selectedMonthIndex);
   }, [selectedMonthIndex]);
@@ -52,46 +48,39 @@ export const Tracker = () => {
     setSelectedMonthIndex(monthIndex);
   };
 
-  // Добавление новой задачи
   const addTask = () => {
     const updatedTasks = [...tasksByMonth[selectedMonthIndex], { name: '', checkboxes: Array(months[selectedMonthIndex].days).fill(false), id: Date.now() }];
     updateTasksForMonth(selectedMonthIndex, updatedTasks);
   };
 
-  // Обновление задачи
   const handleTaskChange = (index, value) => {
     const updatedTasks = [...tasksByMonth[selectedMonthIndex]];
     updatedTasks[index].name = value;
     updateTasksForMonth(selectedMonthIndex, updatedTasks);
   };
 
-  // Удаление задачи
   const removeTask = (id) => {
     const updatedTasks = tasksByMonth[selectedMonthIndex].filter((task) => task.id !== id);
     updateTasksForMonth(selectedMonthIndex, updatedTasks);
   };
 
-  // Обновление состояния чекбоксов
   const handleCheckboxChange = (taskIndex, dayIndex) => {
     const updatedTasks = [...tasksByMonth[selectedMonthIndex]];
     updatedTasks[taskIndex].checkboxes[dayIndex] = !updatedTasks[taskIndex].checkboxes[dayIndex];
     updateTasksForMonth(selectedMonthIndex, updatedTasks);
   };
 
-  // Функция для обновления задач в конкретном месяце
   const updateTasksForMonth = (monthIndex, updatedTasks) => {
     const updatedTasksByMonth = { ...tasksByMonth, [monthIndex]: updatedTasks };
     setTasksByMonth(updatedTasksByMonth);
   };
 
-  // Убедиться, что в текущем месяце есть хотя бы одна задача
   useEffect(() => {
     if (tasksByMonth[selectedMonthIndex].length === 0) {
-      addTask(); // Добавить пустую задачу
+      addTask();
     }
   }, [selectedMonthIndex]);
 
-  // Количество дней в выбранном месяце
   const daysInMonth = months[selectedMonthIndex].days;
 
   return (
