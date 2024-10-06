@@ -26,10 +26,17 @@ export const Tracker = () => {
   // Структура задач по месяцам
   const [tasksByMonth, setTasksByMonth] = useState(() => {
     const savedTasks = localStorage.getItem('tasksByMonth');
-    return savedTasks ? JSON.parse(savedTasks) : months.reduce((acc, _, index) => {
-      acc[index] = []; // Пустой массив задач для каждого месяца
-      return acc;
-    }, {});
+    if (savedTasks) {
+      return JSON.parse(savedTasks);
+    } else {
+      // Если задач нет в localStorage, добавляем по одной пустой задаче для каждого месяца
+      return months.reduce((acc, _, index) => {
+        acc[index] = [
+          { name: '', checkboxes: Array(months[index].days).fill(false), id: Date.now() + index }
+        ]; // Одна пустая задача с пустыми чекбоксами
+        return acc;
+      }, {});
+    }
   });
 
   useEffect(() => {
@@ -76,6 +83,13 @@ export const Tracker = () => {
     const updatedTasksByMonth = { ...tasksByMonth, [monthIndex]: updatedTasks };
     setTasksByMonth(updatedTasksByMonth);
   };
+
+  // Убедиться, что в текущем месяце есть хотя бы одна задача
+  useEffect(() => {
+    if (tasksByMonth[selectedMonthIndex].length === 0) {
+      addTask(); // Добавить пустую задачу
+    }
+  }, [selectedMonthIndex]);
 
   // Количество дней в выбранном месяце
   const daysInMonth = months[selectedMonthIndex].days;
