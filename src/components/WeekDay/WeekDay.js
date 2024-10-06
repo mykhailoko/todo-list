@@ -5,9 +5,10 @@ import Unchecked from '../../assets/unchecked.png';
 import CheckedCat from '../../assets/checkedcat.png';
 import UncheckedCat from '../../assets/uncheckedcat.png';
 
-export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle, addedTodosCountWeek, setAddedTodosCountWeek, completedTodosCountWeek, setCompletedTodosCountWeek }) => {
+export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompletedTodosCountWeek }) => {
   const LOCAL_STORAGE_KEY = `todosWeek_${dayTitle}`;
-  
+  const FLAG_COLORS_KEY = `flagColors_${dayTitle}`; // Уникальный ключ для каждого дня
+
   const [todos, setTodos] = useState(() => {
     const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
     return storedTodos ? JSON.parse(storedTodos) : [];
@@ -19,7 +20,7 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle, addedTodosCountWe
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [todoToDelete, setTodoToDelete] = useState(null);
   const [flagColors, setFlagColors] = useState(() => {
-    const savedFlagColors = JSON.parse(localStorage.getItem("flagColors")) || {};
+    const savedFlagColors = JSON.parse(localStorage.getItem(FLAG_COLORS_KEY)) || {};
     return savedFlagColors;
   });
   const [showColorPicker, setShowColorPicker] = useState(false);
@@ -30,8 +31,8 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle, addedTodosCountWe
   }, [todos, LOCAL_STORAGE_KEY]);
 
   useEffect(() => {
-    localStorage.setItem("flagColors", JSON.stringify(flagColors));
-  }, [flagColors]);
+    localStorage.setItem(FLAG_COLORS_KEY, JSON.stringify(flagColors)); // Сохраняем цвета только для текущего дня
+  }, [flagColors, FLAG_COLORS_KEY]);
 
   const handleAddTodos = () => {
     if (todoValue.trim()) {
@@ -39,14 +40,13 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle, addedTodosCountWe
       setTodos(newTodos);
       setTodoValue("");
       setShowInput(false);
-  
+
       // Увеличиваем счетчик добавленных задач
       setAddedTodosCountWeek(prevCount => prevCount + 1);
     }
   };
 
   const handleDeleteTodo = (index) => {
-    const todo = todos[index];
     const newTodos = todos.filter((_, i) => i !== index);
     setTodos(newTodos);
     setShowDeleteModal(false);
@@ -75,9 +75,9 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle, addedTodosCountWe
       }
       return todo;
     });
-  
+
     setTodos(newTodos);
-  
+
     // Увеличиваем счетчик выполненных задач, если задача была отмечена как выполненная
     if (!todos[index].checked) {
       setCompletedTodosCountWeek(prevCount => prevCount + 1);
