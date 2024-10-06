@@ -53,6 +53,14 @@ export default function TodoList({
     localStorage.setItem("flagColors", JSON.stringify(flagColors));
   }, [flagColors]);
 
+  // Загрузка списка задач из localStorage при загрузке компонента
+  useEffect(() => {
+    const savedTodoLists = JSON.parse(localStorage.getItem("todoLists"));
+    if (savedTodoLists) {
+      setTodoLists(savedTodoLists);
+    }
+  }, [setTodoLists]);
+
   const handleAdd = () => {
     if (todoValue.trim()) {
       handleAddTodo(currentView, { text: todoValue, checked: false });
@@ -69,7 +77,19 @@ export default function TodoList({
 
   const handleSaveTodo = (index) => {
     if (editTodoValue.trim()) {
-      currentList.todos[index].text = editTodoValue;
+      const newTodos = currentList.todos.map((todo, i) =>
+        i === index ? { ...todo, text: editTodoValue } : todo
+      );
+
+      const updatedLists = todoLists.map((list) => {
+        if (list.name === currentView) {
+          return { ...list, todos: newTodos };
+        }
+        return list;
+      });
+
+      setTodoLists(updatedLists);
+      localStorage.setItem("todoLists", JSON.stringify(updatedLists)); // Сохранение в localStorage
       setEditIndex(null);
     }
   };
@@ -87,6 +107,7 @@ export default function TodoList({
     });
 
     setTodoLists(updatedLists);
+    localStorage.setItem("todoLists", JSON.stringify(updatedLists)); // Сохранение в localStorage
 
     const completedTasksCount = newTodos.filter(todo => todo.checked).length;
     setCompletedTodosCount(completedTasksCount);
@@ -230,11 +251,17 @@ export default function TodoList({
                 >
                   <i className={`${flagIcon} fa-flag`} style={{ color: flagColor }}></i>
                 </button>
-                <button onClick={() => handleEditTodo(index)}>
-                  <i className="fa-solid fa-pencil"></i>
+
+                <button
+                  onClick={() => handleEditTodo(index)}
+                >
+                  <i className="fa-solid fa-pen"></i>
                 </button>
-                <button onClick={() => confirmDeleteTodo(index)}>
-                  <i className="fa-regular fa-trash-can"></i>
+
+                <button
+                  onClick={() => confirmDeleteTodo(index)}
+                >
+                  <i className="fa-solid fa-trash"></i>
                 </button>
               </div>
             </li>
@@ -243,33 +270,36 @@ export default function TodoList({
       </ul>
 
       {showDeleteConfirm && (
-        <div className="modal">
-          <div className="modal-content">
-            <p>Delete todo?</p>
-            <button onClick={handleConfirmDelete}>Yes</button>
-            <button onClick={handleCancelDelete}>No</button>
+        <div className="confirm-container">
+          <div className="confirm-window">
+            <p>Are you sure?</p>
+            <div className="confirm-actions">
+              <button onClick={handleConfirmDelete}>Yes</button>
+              <button onClick={handleCancelDelete}>No</button>
+            </div>
           </div>
         </div>
       )}
 
-      {showColorPicker && (
-        <div className="color-modal">
-          <div className="color-modal-content">
-            <button onClick={() => handleFlagColorChange(selectedTodoIndex, "#e42d1a")}>
-              <i className="fa-solid fa-flag" style={{ color: "#e42d1a" }}></i>
-            </button>
-            <button onClick={() => handleFlagColorChange(selectedTodoIndex, "#f3e83e")}>
-              <i className="fa-solid fa-flag" style={{ color: "#f3e83e" }}></i>
-            </button>
-            <button onClick={() => handleFlagColorChange(selectedTodoIndex, "#48d452")}>
-              <i className="fa-solid fa-flag" style={{ color: "#48d452" }}></i>
-            </button>
-            <button onClick={() => handleResetFlagColor(selectedTodoIndex)}>
-              <i className="fa-regular fa-flag" style={{ color: "black" }}></i>
-            </button>
+{showColorPicker && (
+          <div className="color-modal">
+            <div className="color-modal-content">
+              <button onClick={() => handleFlagColorChange(selectedTodoIndex, "#e42d1a")}>
+                <i className="fa-solid fa-flag" style={{ color: "#e42d1a" }}></i>
+              </button>
+              <button onClick={() => handleFlagColorChange(selectedTodoIndex, "#f3e83e")}>
+                <i className="fa-solid fa-flag" style={{ color: "#f3e83e" }}></i>
+              </button>
+              <button onClick={() => handleFlagColorChange(selectedTodoIndex, "#48d452")}>
+                <i className="fa-solid fa-flag" style={{ color: "#48d452" }}></i>
+              </button>
+              <button onClick={() => handleResetFlagColor(selectedTodoIndex)}>
+                <i className="fa-regular fa-flag" style={{ color: "black" }}></i>
+              </button>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
   );
-}
+};
+
