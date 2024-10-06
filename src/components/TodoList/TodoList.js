@@ -53,7 +53,6 @@ export default function TodoList({
     localStorage.setItem("flagColors", JSON.stringify(flagColors));
   }, [flagColors]);
 
-  // Загрузка списка задач из localStorage при загрузке компонента
   useEffect(() => {
     const savedTodoLists = JSON.parse(localStorage.getItem("todoLists"));
     if (savedTodoLists) {
@@ -89,7 +88,7 @@ export default function TodoList({
       });
 
       setTodoLists(updatedLists);
-      localStorage.setItem("todoLists", JSON.stringify(updatedLists)); // Сохранение в localStorage
+      localStorage.setItem("todoLists", JSON.stringify(updatedLists));
       setEditIndex(null);
     }
   };
@@ -107,7 +106,7 @@ export default function TodoList({
     });
 
     setTodoLists(updatedLists);
-    localStorage.setItem("todoLists", JSON.stringify(updatedLists)); // Сохранение в localStorage
+    localStorage.setItem("todoLists", JSON.stringify(updatedLists));
 
     const completedTasksCount = newTodos.filter(todo => todo.checked).length;
     setCompletedTodosCount(completedTasksCount);

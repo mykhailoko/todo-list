@@ -4,12 +4,10 @@ import Checked from '../../assets/checked.png';
 import Unchecked from '../../assets/unchecked.png';
 import CheckedCat from '../../assets/checkedcat.png';
 import UncheckedCat from '../../assets/uncheckedcat.png';
-import ChillCat from "../../assets/chillcat.png";
 
-export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
+export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle, addedTodosCountWeek, setAddedTodosCountWeek, completedTodosCountWeek, setCompletedTodosCountWeek }) => {
   const LOCAL_STORAGE_KEY = `todosWeek_${dayTitle}`;
-  const COUNT_KEY = `addedTodosCount_${dayTitle}`; 
-  const COMPLETED_COUNT_KEY = `completedTodosCount_${dayTitle}`; 
+  
   const [todos, setTodos] = useState(() => {
     const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
     return storedTodos ? JSON.parse(storedTodos) : [];
@@ -20,41 +18,16 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
   const [showInput, setShowInput] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [todoToDelete, setTodoToDelete] = useState(null);
-  const [showReminder, setShowReminder] = useState(false);
-  const [addedTodosCount, setAddedTodosCount] = useState(() => {
-    const storedCount = localStorage.getItem(COUNT_KEY);
-    return storedCount ? parseInt(storedCount, 10) : 0;
-  });
-  const [completedTodosCount, setCompletedTodosCount] = useState(() => {
-    const storedCompletedCount = localStorage.getItem(COMPLETED_COUNT_KEY);
-    return storedCompletedCount ? parseInt(storedCompletedCount, 10) : 0;
-  });
-
   const [flagColors, setFlagColors] = useState(() => {
     const savedFlagColors = JSON.parse(localStorage.getItem("flagColors")) || {};
     return savedFlagColors;
   });
-
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [selectedTodoIndex, setSelectedTodoIndex] = useState(null);
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
   }, [todos, LOCAL_STORAGE_KEY]);
-
-  useEffect(() => {
-    localStorage.setItem(COUNT_KEY, addedTodosCount);
-  }, [addedTodosCount, COUNT_KEY]);
-
-  useEffect(() => {
-    localStorage.setItem(COMPLETED_COUNT_KEY, completedTodosCount);
-  }, [completedTodosCount, COMPLETED_COUNT_KEY]);
-
-  useEffect(() => {
-    if (addedTodosCount === 5 || completedTodosCount === 5) {
-      setShowReminder(true);
-    }
-  }, [addedTodosCount, completedTodosCount]);
 
   useEffect(() => {
     localStorage.setItem("flagColors", JSON.stringify(flagColors));
@@ -66,15 +39,14 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
       setTodos(newTodos);
       setTodoValue("");
       setShowInput(false);
-      setAddedTodosCount(prevCount => prevCount + 1);
+  
+      // Увеличиваем счетчик добавленных задач
+      setAddedTodosCountWeek(prevCount => prevCount + 1);
     }
   };
 
   const handleDeleteTodo = (index) => {
     const todo = todos[index];
-    if (todo.checked) {
-      setCompletedTodosCount(prevCount => prevCount - 1); 
-    }
     const newTodos = todos.filter((_, i) => i !== index);
     setTodos(newTodos);
     setShowDeleteModal(false);
@@ -99,16 +71,17 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
     const newTodos = todos.map((todo, i) => {
       if (i === index) {
         const newCheckedStatus = !todo.checked;
-        if (newCheckedStatus) {
-          setCompletedTodosCount(prevCount => prevCount + 1); 
-        } else {
-          setCompletedTodosCount(prevCount => prevCount - 1);
-        }
         return { ...todo, checked: newCheckedStatus };
       }
       return todo;
     });
+  
     setTodos(newTodos);
+  
+    // Увеличиваем счетчик выполненных задач, если задача была отмечена как выполненная
+    if (!todos[index].checked) {
+      setCompletedTodosCountWeek(prevCount => prevCount + 1);
+    }
   };
 
   const getCheckImages = (checked) => {
@@ -235,22 +208,6 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
               <p>Delete todo?</p>
               <button onClick={() => handleDeleteTodo(todoToDelete)}>Да</button>
               <button onClick={closeDeleteModal}>Нет</button>
-            </div>
-          </div>
-        )}
-
-        {showReminder && (
-          <div className="reminder-container">
-            <div className="reminder-main">
-              <p className="reminder">Не забудьте отдохнуть!</p>
-              <img src={ChillCat} alt="cute-cat" />
-              <button onClick={() => {
-                setShowReminder(false);
-                setAddedTodosCount(0);
-                setCompletedTodosCount(0);
-              }}>
-                OK
-              </button>
             </div>
           </div>
         )}
