@@ -269,18 +269,16 @@ export default function TodoList({
       </ul>
 
       {showDeleteConfirm && (
-        <div className="confirm-container">
-          <div className="confirm-window">
-            <p>Are you sure?</p>
-            <div className="confirm-actions">
-              <button onClick={handleConfirmDelete}>Yes</button>
-              <button onClick={handleCancelDelete}>No</button>
+          <div className="modal">
+            <div className="modal-content">
+              <p>Delete todo?</p>
+              <button onClick={handleConfirmDelete}>Да</button>
+              <button onClick={handleCancelDelete}>Нет</button>
             </div>
           </div>
-        </div>
       )}
 
-{showColorPicker && (
+      {showColorPicker && (
           <div className="color-modal">
             <div className="color-modal-content">
               <button onClick={() => handleFlagColorChange(selectedTodoIndex, "#e42d1a")}>

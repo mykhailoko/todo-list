@@ -7,7 +7,7 @@ import UncheckedCat from '../../assets/uncheckedcat.png';
 
 export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompletedTodosCountWeek }) => {
   const LOCAL_STORAGE_KEY = `todosWeek_${dayTitle}`;
-  const FLAG_COLORS_KEY = `flagColors_${dayTitle}`; // Уникальный ключ для каждого дня
+  const FLAG_COLORS_KEY = `flagColors_${dayTitle}`;
 
   const [todos, setTodos] = useState(() => {
     const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -31,7 +31,7 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
   }, [todos, LOCAL_STORAGE_KEY]);
 
   useEffect(() => {
-    localStorage.setItem(FLAG_COLORS_KEY, JSON.stringify(flagColors)); // Сохраняем цвета только для текущего дня
+    localStorage.setItem(FLAG_COLORS_KEY, JSON.stringify(flagColors)); 
   }, [flagColors, FLAG_COLORS_KEY]);
 
   const handleAddTodos = () => {
@@ -41,7 +41,6 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
       setTodoValue("");
       setShowInput(false);
 
-      // Увеличиваем счетчик добавленных задач
       setAddedTodosCountWeek(prevCount => prevCount + 1);
     }
   };
@@ -78,7 +77,6 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
 
     setTodos(newTodos);
 
-    // Увеличиваем счетчик выполненных задач, если задача была отмечена как выполненная
     if (!todos[index].checked) {
       setCompletedTodosCountWeek(prevCount => prevCount + 1);
     }
