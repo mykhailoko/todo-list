@@ -202,6 +202,7 @@ export const WeekDay = ({ checkStyle, setCheckStyle, dayTitle }) => {
             <button onClick={() => {
               setShowReminder(false);
               setAddedTodosCount(0);
+              setCompletedTodosCount(0);
             }}>
               OK
             </button>
