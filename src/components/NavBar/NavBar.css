@@ -22,3 +22,10 @@
     z-index: 2;
     transition: color 0.3s;
 }
+
+#trackerIcon {
+    font-size: 23px;
+    cursor: pointer;
+    z-index: 2;
+    transition: color 0.3s;
+}

@@ -20,7 +20,7 @@ export const NavBar = ({
           className="fa-solid fa-list"
           id='barIcon'
           onClick={toggleMenu}
-          style={{ color: isMenuVisible || currentView !== "Week" ? '#ffbb33' : 'white' }}
+          style={{ color: isMenuVisible || (currentView !== "Week" && currentView !== "Tracker") ? '#ffbb33' : 'white' }}
         ></i>
       </div>
       <div className='navItem'>
@@ -29,6 +29,14 @@ export const NavBar = ({
           id="weekIcon" 
           style={{ color: currentView === "Week" ? '#ffbb33' : 'white' }}
           onClick={() => setCurrentView("Week")}
+        ></i>
+      </div>
+      <div className='navItem'>
+        <i 
+          className="fa-solid fa-book-open"
+          id="trackerIcon" 
+          style={{ color: currentView === "Tracker" ? '#ffbb33' : 'white' }}
+          onClick={() => setCurrentView("Tracker")}
         ></i>
       </div>
       <div className='navItem'>
