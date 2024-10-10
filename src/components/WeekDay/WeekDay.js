@@ -6,8 +6,10 @@ import CheckedCat from '../../assets/checkedcat.png';
 import UncheckedCat from '../../assets/uncheckedcat.png';
 import CheckedShark from "../../assets/checkedshark.png";
 import UncheckedShark from "../../assets/uncheckedshark.png";
+import CheckedDog from "../../assets/checkeddog.png";
+import UncheckedDog from "../../assets/uncheckeddog.png";
 
-export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompletedTodosCountWeek }) => {
+export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompletedTodosCountWeek, completedTodosSet, setCompletedTodosSet }) => {
   const LOCAL_STORAGE_KEY = `todosWeek_${dayTitle}`;
   const FLAG_COLORS_KEY = `flagColors_${dayTitle}`;
 
@@ -80,7 +82,13 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
     setTodos(newTodos);
 
     if (!todos[index].checked) {
-      setCompletedTodosCountWeek(prevCount => prevCount + 1);
+      setCompletedTodosSet(prevSet => new Set(prevSet).add(`${dayTitle}_${index}`)); 
+    } else {
+      setCompletedTodosSet(prevSet => {
+        const newSet = new Set(prevSet);
+        newSet.delete(`${dayTitle}_${index}`);
+        return newSet;
+      });
     }
   };
 
@@ -90,6 +98,9 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
     }
     if (checkStyle === "shark") {
       return { checkedImg: CheckedShark, uncheckedImg: UncheckedShark };
+    }
+    if (checkStyle === "dog") {
+      return { checkedImg: CheckedDog, uncheckedImg: UncheckedDog };
     }
     return { checkedImg: Checked, uncheckedImg: Unchecked };
   };

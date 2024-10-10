@@ -39,7 +39,8 @@
 
 .stylecat,
 .styleusual,
-.styleshark {
+.styleshark,
+.styledog {
   transition-duration: 200ms;
   background: transparent;
   border: none;

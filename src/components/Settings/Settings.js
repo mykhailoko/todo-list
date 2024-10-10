@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Cat from "../../assets/checkedcat.png";
 import Usual from "../../assets/checked.png";
 import Shark from "../../assets/checkedshark.png";
+import Dog from "../../assets/checkeddog.png";
 import './Settings.css';
 
 export const Settings = ({ isVisible, toggleSettings, setCheckStyle, checkStyle, completedCount, deletedTodos, setDeletedTodos }) => {
@@ -59,6 +60,16 @@ export const Settings = ({ isVisible, toggleSettings, setCheckStyle, checkStyle,
               }}
             >
               <img className="styleicon" src={Shark} alt="shark" />
+            </button>
+
+            <button
+              className={`styledog ${checkStyle === 'dog' ? 'active' : ''}`}
+              onClick={() => handleStyleChange('dog')}
+              style={{
+                backgroundColor: selectedStyle === 'dog' ? '#9f9f9f' : 'transparent'
+              }}
+            >
+              <img className="styleicon" src={Dog} alt="dog" />
             </button>
     
             <button

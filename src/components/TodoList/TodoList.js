@@ -5,6 +5,8 @@ import CheckedCat from "../../assets/checkedcat.png";
 import UncheckedCat from "../../assets/uncheckedcat.png";
 import CheckedShark from "../../assets/checkedshark.png";
 import UncheckedShark from "../../assets/uncheckedshark.png";
+import CheckedDog from "../../assets/checkeddog.png";
+import UncheckedDog from "../../assets/uncheckeddog.png";
 import ChillCat from "../../assets/chillcat.png";
 import './TodoList.css';
 
@@ -120,6 +122,9 @@ export default function TodoList({
     }
     if (checkStyle === "shark") {
       return { checkedImg: CheckedShark, uncheckedImg: UncheckedShark };
+    }
+    if (checkStyle === "dog") {
+      return { checkedImg: CheckedDog, uncheckedImg: UncheckedDog };
     }
     return { checkedImg: Checked, uncheckedImg: Unchecked };
   };

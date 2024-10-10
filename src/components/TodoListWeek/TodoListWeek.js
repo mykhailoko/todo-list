@@ -6,18 +6,19 @@ import ChillCat from "../../assets/chillcat.png";
 export default function TodoListWeek({ checkStyle, setCheckStyle }) {
   const [addedTodosCountWeek, setAddedTodosCountWeek] = useState(0); 
   const [completedTodosCountWeek, setCompletedTodosCountWeek] = useState(0);
+  const [completedTodosSet, setCompletedTodosSet] = useState(new Set());
   const [showReminderWeek, setShowReminderWeek] = useState(false);
 
   useEffect(() => {
-    if (addedTodosCountWeek === 5 || completedTodosCountWeek === 5) {
+    if (addedTodosCountWeek === 5 || completedTodosSet.size === 5) {
       setShowReminderWeek(true);
     }
-  }, [addedTodosCountWeek, completedTodosCountWeek]);
+  }, [addedTodosCountWeek, completedTodosSet]);
 
   const handleResetReminder = () => {
     setShowReminderWeek(false);
     setAddedTodosCountWeek(0);
-    setCompletedTodosCountWeek(0);
+    setCompletedTodosSet(new Set());
   };
 
   return (
@@ -42,6 +43,8 @@ export default function TodoListWeek({ checkStyle, setCheckStyle }) {
         setAddedTodosCountWeek={setAddedTodosCountWeek}
         completedTodosCountWeek={completedTodosCountWeek}
         setCompletedTodosCountWeek={setCompletedTodosCountWeek}
+        completedTodosSet={completedTodosSet}
+        setCompletedTodosSet={setCompletedTodosSet}
       />
       <WeekDay 
         checkStyle={checkStyle} 
@@ -51,6 +54,8 @@ export default function TodoListWeek({ checkStyle, setCheckStyle }) {
         setAddedTodosCountWeek={setAddedTodosCountWeek}
         completedTodosCountWeek={completedTodosCountWeek}
         setCompletedTodosCountWeek={setCompletedTodosCountWeek}
+        completedTodosSet={completedTodosSet}
+        setCompletedTodosSet={setCompletedTodosSet}
       />
       <WeekDay 
         checkStyle={checkStyle} 
@@ -60,6 +65,8 @@ export default function TodoListWeek({ checkStyle, setCheckStyle }) {
         setAddedTodosCountWeek={setAddedTodosCountWeek}
         completedTodosCountWeek={completedTodosCountWeek}
         setCompletedTodosCountWeek={setCompletedTodosCountWeek}
+        completedTodosSet={completedTodosSet}
+        setCompletedTodosSet={setCompletedTodosSet}
       />
       <WeekDay 
         checkStyle={checkStyle} 
@@ -69,6 +76,8 @@ export default function TodoListWeek({ checkStyle, setCheckStyle }) {
         setAddedTodosCountWeek={setAddedTodosCountWeek}
         completedTodosCountWeek={completedTodosCountWeek}
         setCompletedTodosCountWeek={setCompletedTodosCountWeek}
+        completedTodosSet={completedTodosSet}
+        setCompletedTodosSet={setCompletedTodosSet}
       />
       <WeekDay 
         checkStyle={checkStyle} 
@@ -78,6 +87,8 @@ export default function TodoListWeek({ checkStyle, setCheckStyle }) {
         setAddedTodosCountWeek={setAddedTodosCountWeek}
         completedTodosCountWeek={completedTodosCountWeek}
         setCompletedTodosCountWeek={setCompletedTodosCountWeek}
+        completedTodosSet={completedTodosSet}
+        setCompletedTodosSet={setCompletedTodosSet}
       />
       <WeekDay 
         checkStyle={checkStyle} 
@@ -87,6 +98,8 @@ export default function TodoListWeek({ checkStyle, setCheckStyle }) {
         setAddedTodosCountWeek={setAddedTodosCountWeek}
         completedTodosCountWeek={completedTodosCountWeek}
         setCompletedTodosCountWeek={setCompletedTodosCountWeek}
+        completedTodosSet={completedTodosSet}
+        setCompletedTodosSet={setCompletedTodosSet}
       />
       <WeekDay 
         checkStyle={checkStyle} 
@@ -96,6 +109,8 @@ export default function TodoListWeek({ checkStyle, setCheckStyle }) {
         setAddedTodosCountWeek={setAddedTodosCountWeek}
         completedTodosCountWeek={completedTodosCountWeek}
         setCompletedTodosCountWeek={setCompletedTodosCountWeek}
+        completedTodosSet={completedTodosSet}
+        setCompletedTodosSet={setCompletedTodosSet}
       />
     </div>
   );
