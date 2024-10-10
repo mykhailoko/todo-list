@@ -4,6 +4,8 @@ import Checked from '../../assets/checked.png';
 import Unchecked from '../../assets/unchecked.png';
 import CheckedCat from '../../assets/checkedcat.png';
 import UncheckedCat from '../../assets/uncheckedcat.png';
+import CheckedShark from "../../assets/checkedshark.png";
+import UncheckedShark from "../../assets/uncheckedshark.png";
 
 export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompletedTodosCountWeek }) => {
   const LOCAL_STORAGE_KEY = `todosWeek_${dayTitle}`;
@@ -85,6 +87,9 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
   const getCheckImages = (checked) => {
     if (checkStyle === 'cat') {
       return { checkedImg: CheckedCat, uncheckedImg: UncheckedCat };
+    }
+    if (checkStyle === "shark") {
+      return { checkedImg: CheckedShark, uncheckedImg: UncheckedShark };
     }
     return { checkedImg: Checked, uncheckedImg: Unchecked };
   };

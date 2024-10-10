@@ -3,6 +3,8 @@ import Checked from "../../assets/checked.png";
 import Unchecked from "../../assets/unchecked.png";
 import CheckedCat from "../../assets/checkedcat.png";
 import UncheckedCat from "../../assets/uncheckedcat.png";
+import CheckedShark from "../../assets/checkedshark.png";
+import UncheckedShark from "../../assets/uncheckedshark.png";
 import ChillCat from "../../assets/chillcat.png";
 import './TodoList.css';
 
@@ -115,6 +117,9 @@ export default function TodoList({
   const getCheckImages = (checked) => {
     if (checkStyle === "cat") {
       return { checkedImg: CheckedCat, uncheckedImg: UncheckedCat };
+    }
+    if (checkStyle === "shark") {
+      return { checkedImg: CheckedShark, uncheckedImg: UncheckedShark };
     }
     return { checkedImg: Checked, uncheckedImg: Unchecked };
   };

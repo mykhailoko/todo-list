@@ -28,20 +28,24 @@
 .buttons-style {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   margin-top: 80px;
 }
 
 .styleicon {
-  width: 40px;
+  width: 50px;
   margin: 20px;
 }
 
 .stylecat,
-.styleusual {
+.styleusual,
+.styleshark {
   transition-duration: 200ms;
   background: transparent;
   border: none;
   cursor: pointer;
   padding: 10px;
+  width: 110px;
+  margin: 0 auto;
   border-radius: 10px;
 }
