@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Tracker.css';
 
-export const Tracker = () => {
+export const Tracker = ({ theme }) => {
   const months = [
     { name: 'Январь', days: 31 },
     { name: 'Февраль', days: 28 },
@@ -85,12 +85,34 @@ export const Tracker = () => {
 
   return (
     <div className='tracker'>
-      <h1 className="title-tracker">Habit Tracker</h1>
+      <h1 
+        className="title-tracker"
+        style={{
+          color: theme === "dark" 
+            ? "white"
+            : "#202124"
+        }}
+      >Habit Tracker</h1>
       <div className="tracker-table-container">
-        <table className="tracker-table">
+        <table 
+          className="tracker-table"
+          style={{
+            boxShadow: theme === "dark" 
+              ? "0px 0px 10px 0px rgba(0, 0, 0, 0)"  
+              : "0px 0px 10px 0px rgba(0, 0, 0, 0.3)",
+            borderCollapse: 'collapse',
+          }}
+        >
           <thead>
             <tr>
-              <th id='habit-zero'>
+              <th 
+                id='habit-zero'
+                style={{
+                  border: theme === "dark" 
+                    ? "1px solid #ddd"
+                    : "1px solid #222"
+                }}
+              >
                 <select value={months[selectedMonthIndex].name} onChange={(e) => {
                   const monthIndex = months.findIndex(month => month.name === e.target.value);
                   handleMonthChange(monthIndex);
@@ -101,24 +123,52 @@ export const Tracker = () => {
                 </select>
               </th>
               {Array.from({ length: daysInMonth }, (_, i) => (
-                <th key={i + 1}>{i + 1}</th>
+                <th key={i + 1} style={{
+                  border: theme === "dark" 
+                    ? "1px solid #ddd"
+                    : "1px solid #222"
+                }}>
+                  {i + 1}
+                </th>
               ))}
             </tr>
           </thead>
           <tbody>
             {tasksByMonth[selectedMonthIndex].map((task, taskIndex) => (
               <tr key={task.id}>
-                <td id='habit'>
+                <td 
+                  id='habit'
+                  style={{
+                    borderLeft: theme === "dark" 
+                      ? "1px solid #ddd"
+                      : "1px solid #222",
+                    borderBottom: theme === "dark" 
+                      ? "1px solid #ddd"
+                      : "1px solid #222",
+                  }}
+                >
                   <input
                     type="text"
                     placeholder={`Task ${taskIndex + 1}`}
                     value={task.name}
                     onChange={(e) => handleTaskChange(taskIndex, e.target.value)}
                   />
-                  <button onClick={() => removeTask(task.id)} className="remove-task-button">-</button>
+                  <button 
+                    onClick={() => removeTask(task.id)} 
+                    className="remove-task-button"
+                    style={{
+                      background: theme === "dark" 
+                        ? '#ffbb33'  
+                        : '#3366ff'
+                    }}
+                  >-</button>
                 </td>
                 {Array.from({ length: daysInMonth }, (_, dayIndex) => (
-                  <td key={dayIndex} id='checkbox'>
+                  <td key={dayIndex} id='checkbox' style={{
+                    border: theme === "dark" 
+                      ? "1px solid #ddd"
+                      : "1px solid #222"
+                  }}>
                     <input 
                       type="checkbox" 
                       checked={task.checkboxes[dayIndex]} 
@@ -131,8 +181,19 @@ export const Tracker = () => {
           </tbody>
         </table>
       </div>
-      <button onClick={addTask} className="add-task-button">
-        <i className="fa-solid fa-plus" style={{ color: 'white', fontSize: '20px' }}></i>
+      <button 
+        onClick={addTask} 
+        className="add-task-button"
+        style={{
+          background: theme === "dark" 
+            ? '#ffbb33'  
+            : '#3366ff'
+        }}
+      >
+        <i 
+          className="fa-solid fa-plus" 
+          style={{ color: 'white', fontSize: '20px' }}
+        ></i>
       </button>
     </div>
   );

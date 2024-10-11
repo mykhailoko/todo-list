@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Menu.css';
 
-export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoLists, setTodoLists }) => {
+export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoLists, setTodoLists, theme }) => {
   const [inputValue, setInputValue] = useState('');
   const [editIndex, setEditIndex] = useState(null);
   const [editItemValue, setEditItemValue] = useState('');
@@ -117,7 +117,15 @@ export const Menu = ({ isVisible, toggleMenu, setCurrentView, currentView, todoL
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
             />
-            <button className='button-list' onClick={handleAddItem}>Add</button>
+            <button 
+              className='button-list' 
+              onClick={handleAddItem}
+              style={{
+                background: theme === "dark" 
+                  ? '#ffbb33'  
+                  : '#3366ff'
+              }}
+            >Add</button>
           </div>
         </div>
       )}

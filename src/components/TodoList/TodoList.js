@@ -17,6 +17,7 @@ export default function TodoList({
   handleDeleteTodo,
   checkStyle,
   setTodoLists,
+  theme
 }) {
   const currentList = todoLists.find((list) => list.name === currentView);
   const [todoValue, setTodoValue] = useState("");
@@ -170,7 +171,14 @@ export default function TodoList({
 
   return (
     <div onClick={handleOutsideClick}>
-      <h1 className="title">{currentView}</h1>
+      <h1 
+        className="title"
+        style={{
+          color: theme === "dark" 
+            ? "white"
+            : "#202124"
+        }}
+      >{currentView}</h1>
 
       {showReminder && (
         <div className="reminder-container">
@@ -191,20 +199,54 @@ export default function TodoList({
         <button
           className="add-header-button"
           onClick={() => setShowInput(!showInput)}
+          style={{
+            background: theme === "dark" 
+              ? '#ffbb33'  
+              : '#3366ff'
+          }}
         >
-          <i className={showInput ? "fa-solid fa-xmark" : "fa-solid fa-plus"} style={{ color: 'white', fontSize: '24px' }}></i>
+          <i 
+            className={showInput ? "fa-solid fa-xmark" : "fa-solid fa-plus"} 
+            style={{ color: 'white', fontSize: '24px'}}
+          ></i>
         </button>
       </div>
 
       {showInput && (
-        <div className="usual-header">
+        <div 
+          className="usual-header"
+          style={{
+            background: theme === "dark" 
+              ? '#edeef0'  
+              : 'white',
+            boxShadow: theme === "dark"
+              ? "0px 0px 10px 0px rgba(255, 255, 255, 0)"
+              : "0px 0px 10px 0px rgba(0, 0, 0, 0.1)"
+          }}
+        >
           <input
             className="input-header"
             value={todoValue}
             onChange={(e) => setTodoValue(e.target.value)}
             placeholder="Enter todo"
+            style={{
+              background: theme === "dark" 
+                ? 'transparent'  
+                : 'white',
+              borderRadius: theme === "dark"
+                ? '0px'
+                : '100px'
+            }}
           />
-          <button className="header-button" onClick={handleAdd}>Add</button>
+          <button 
+            className="header-button" 
+            onClick={handleAdd}
+            style={{
+              background: theme === "dark" 
+                ? '#ffbb33'  
+                : '#3366ff'
+            }}
+          >Add</button>
         </div>
       )}
 
@@ -215,7 +257,15 @@ export default function TodoList({
           const flagIcon = flagColors[index] ? flagColors[index].icon : "fa-regular";
 
           return (
-            <li key={index} className="todoItem">
+            <li 
+              key={index} 
+              className="todoItem"
+              style={{
+                boxShadow: theme === "dark" 
+                  ? "0px 0px 10px 0px rgba(0, 0, 0, 0)"  
+                  : "0px 0px 10px 0px rgba(0, 0, 0, 0.1)"
+              }}
+            >
               <button
                 className="checkbutton"
                 onClick={() => toggleCheck(index)}
@@ -282,8 +332,22 @@ export default function TodoList({
           <div className="modal">
             <div className="modal-content">
               <p>Delete todo?</p>
-              <button onClick={handleConfirmDelete}>Да</button>
-              <button onClick={handleCancelDelete}>Нет</button>
+              <button 
+                onClick={handleConfirmDelete}
+                style={{
+                  background: theme === "dark" 
+                    ? '#ffbb33'  
+                    : '#3366ff'
+                }}
+              >Да</button>
+              <button 
+                onClick={handleCancelDelete}
+                style={{
+                  background: theme === "dark" 
+                    ? '#ffbb33'  
+                    : '#3366ff'
+                }}
+              >Нет</button>
             </div>
           </div>
       )}

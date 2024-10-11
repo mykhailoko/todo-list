@@ -3,7 +3,7 @@ import { WeekDay } from "../WeekDay/WeekDay";
 import './TodoListWeek.css';
 import ChillCat from "../../assets/chillcat.png";
 
-export default function TodoListWeek({ checkStyle, setCheckStyle }) {
+export default function TodoListWeek({ checkStyle, setCheckStyle, theme }) {
   const [addedTodosCountWeek, setAddedTodosCountWeek] = useState(0); 
   const [completedTodosCountWeek, setCompletedTodosCountWeek] = useState(0);
   const [completedTodosSet, setCompletedTodosSet] = useState(new Set());
@@ -23,7 +23,14 @@ export default function TodoListWeek({ checkStyle, setCheckStyle }) {
 
   return (
     <div>
-      <h1 className="title-week-main">Weekly To-Do List</h1>
+      <h1 
+        className="title-week-main"
+        style={{
+          color: theme === "dark" 
+            ? "white"
+            : "#202124"
+        }}
+      >Weekly To-Do List</h1>
 
       {showReminderWeek && (
         <div className="week-reminder-container">
@@ -45,6 +52,7 @@ export default function TodoListWeek({ checkStyle, setCheckStyle }) {
         setCompletedTodosCountWeek={setCompletedTodosCountWeek}
         completedTodosSet={completedTodosSet}
         setCompletedTodosSet={setCompletedTodosSet}
+        theme={theme}
       />
       <WeekDay 
         checkStyle={checkStyle} 
@@ -56,6 +64,7 @@ export default function TodoListWeek({ checkStyle, setCheckStyle }) {
         setCompletedTodosCountWeek={setCompletedTodosCountWeek}
         completedTodosSet={completedTodosSet}
         setCompletedTodosSet={setCompletedTodosSet}
+        theme={theme}
       />
       <WeekDay 
         checkStyle={checkStyle} 
@@ -67,6 +76,7 @@ export default function TodoListWeek({ checkStyle, setCheckStyle }) {
         setCompletedTodosCountWeek={setCompletedTodosCountWeek}
         completedTodosSet={completedTodosSet}
         setCompletedTodosSet={setCompletedTodosSet}
+        theme={theme}
       />
       <WeekDay 
         checkStyle={checkStyle} 
@@ -78,6 +88,7 @@ export default function TodoListWeek({ checkStyle, setCheckStyle }) {
         setCompletedTodosCountWeek={setCompletedTodosCountWeek}
         completedTodosSet={completedTodosSet}
         setCompletedTodosSet={setCompletedTodosSet}
+        theme={theme}
       />
       <WeekDay 
         checkStyle={checkStyle} 
@@ -89,6 +100,7 @@ export default function TodoListWeek({ checkStyle, setCheckStyle }) {
         setCompletedTodosCountWeek={setCompletedTodosCountWeek}
         completedTodosSet={completedTodosSet}
         setCompletedTodosSet={setCompletedTodosSet}
+        theme={theme}
       />
       <WeekDay 
         checkStyle={checkStyle} 
@@ -100,6 +112,7 @@ export default function TodoListWeek({ checkStyle, setCheckStyle }) {
         setCompletedTodosCountWeek={setCompletedTodosCountWeek}
         completedTodosSet={completedTodosSet}
         setCompletedTodosSet={setCompletedTodosSet}
+        theme={theme}
       />
       <WeekDay 
         checkStyle={checkStyle} 
@@ -111,6 +124,7 @@ export default function TodoListWeek({ checkStyle, setCheckStyle }) {
         setCompletedTodosCountWeek={setCompletedTodosCountWeek}
         completedTodosSet={completedTodosSet}
         setCompletedTodosSet={setCompletedTodosSet}
+        theme={theme}
       />
     </div>
   );

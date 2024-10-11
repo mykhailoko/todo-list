@@ -9,7 +9,7 @@ import UncheckedShark from "../../assets/uncheckedshark.png";
 import CheckedDog from "../../assets/checkeddog.png";
 import UncheckedDog from "../../assets/uncheckeddog.png";
 
-export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompletedTodosCountWeek, completedTodosSet, setCompletedTodosSet }) => {
+export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompletedTodosCountWeek, completedTodosSet, setCompletedTodosSet, theme }) => {
   const LOCAL_STORAGE_KEY = `todosWeek_${dayTitle}`;
   const FLAG_COLORS_KEY = `flagColors_${dayTitle}`;
 
@@ -141,24 +141,62 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
     <div onClick={handleOutsideClick}>
       <div className="day">
         <header className="week-header">
-          <h1 className="week-title">{dayTitle}</h1>
+          <h1 
+            className="week-title"
+            style={{
+              color: theme === "dark" 
+                ? "white"
+                : "#202124"
+            }}
+          >{dayTitle}</h1>
           <button 
             className="week-header-button" 
             onClick={() => setShowInput(!showInput)}
+            style={{
+              background: theme === "dark" 
+                ? '#ffbb33'  
+                : '#3366ff'
+            }}
           >
             <i className={showInput ? "fa-solid fa-xmark" : "fa-solid fa-plus"} style={{ color: 'white', fontSize: '24px' }}></i>
           </button>
         </header>
         
         {showInput && (
-          <div className="usual-header">
+          <div 
+            className="usual-header"
+            style={{
+              background: theme === "dark" 
+                ? '#edeef0'  
+                : 'white',
+              boxShadow: theme === "dark"
+                ? "0px 0px 10px 0px rgba(255, 255, 255, 0)"
+                : "0px 0px 10px 0px rgba(0, 0, 0, 0.1)"
+            }}
+          >
             <input
               className="input-header"
               value={todoValue}
               onChange={(e) => setTodoValue(e.target.value)}
               placeholder="Enter todo"
+              style={{
+                background: theme === "dark" 
+                  ? 'transparent'  
+                  : 'white',
+                borderRadius: theme === "dark"
+                  ? '0px'
+                  : '100px'
+              }}
             />
-            <button className="header-button" onClick={handleAddTodos}>Add</button>
+            <button 
+              className="header-button" 
+              onClick={handleAddTodos}
+              style={{
+                background: theme === "dark" 
+                  ? '#ffbb33'  
+                  : '#3366ff'
+              }}
+            >Add</button>
           </div>
         )}
         
@@ -169,7 +207,15 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
             const flagIcon = flagColors[index] ? flagColors[index].icon : "fa-regular";
             
             return (
-              <li key={index} className="todoItem">
+              <li 
+                key={index} 
+                className="todoItem"
+                style={{
+                  boxShadow: theme === "dark" 
+                    ? "0px 0px 10px 0px rgba(0, 0, 0, 0)"  
+                    : "0px 0px 10px 0px rgba(0, 0, 0, 0.1)"
+                }}
+              >
                 <button className="checkbutton" onClick={() => toggleCheck(index)}>
                   <img
                     className="check"
@@ -220,8 +266,22 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
           <div className="modal">
             <div className="modal-content">
               <p>Delete todo?</p>
-              <button onClick={() => handleDeleteTodo(todoToDelete)}>Да</button>
-              <button onClick={closeDeleteModal}>Нет</button>
+              <button 
+                onClick={() => handleDeleteTodo(todoToDelete)}
+                style={{
+                  background: theme === "dark" 
+                    ? '#ffbb33'  
+                    : '#3366ff'
+                }}
+              >Да</button>
+              <button 
+                onClick={closeDeleteModal}
+                style={{
+                  background: theme === "dark" 
+                    ? '#ffbb33'  
+                    : '#3366ff'
+                }}
+              >Нет</button>
             </div>
           </div>
         )}

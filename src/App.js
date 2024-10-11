@@ -8,6 +8,11 @@ import { Tracker } from "./components/Tracker/Tracker";
 import './App.css';
 
 function App() {
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme ? savedTheme : "light";
+  });
+
   const [todoLists, setTodoLists] = useState(() => {
     const storedLists = localStorage.getItem("todoLists");
     return storedLists
@@ -56,6 +61,10 @@ function App() {
     setIsSettingsVisible(!isSettingsVisible);
   };
 
+  const handleThemeChange = (newTheme) => {
+    setTheme(newTheme);
+  };
+
   const handleAddTodo = (listName, newTodo) => {
     const updatedLists = todoLists.map((list) => {
       if (list.name === listName) {
@@ -81,7 +90,14 @@ function App() {
   };
 
   return (
-    <div className="container">
+    <div
+      className="container"
+      style={{
+        background: theme === "dark" 
+          ? "linear-gradient(135deg, #153677, #4e085f)" 
+          : "linear-gradient(135deg, #e0f7fa, #ffb3b3)"
+      }}
+    >
       <NavBar 
         isMenuVisible={isMenuVisible}
         toggleMenu={toggleMenu}
@@ -93,6 +109,7 @@ function App() {
         setTodoLists={setTodoLists}
         checkStyle={checkStyle}
         setCheckStyle={setCheckStyle}
+        theme={theme}
       />
   
       {isMenuVisible && (
@@ -103,6 +120,7 @@ function App() {
           currentView={currentView}
           todoLists={todoLists}
           setTodoLists={setTodoLists}
+          theme={theme}
         />
       )}
 
@@ -113,7 +131,8 @@ function App() {
           setCheckStyle={setCheckStyle}
           checkStyle={checkStyle}
           deletedTodos={deletedTodos}
-          setDeletedTodos={setDeletedTodos} 
+          setDeletedTodos={setDeletedTodos}
+          onThemeChange={handleThemeChange}
         />
       )}
 
@@ -121,9 +140,12 @@ function App() {
         <TodoListWeek
           checkStyle={checkStyle}
           setCheckStyle={setCheckStyle}
+          theme={theme}
         />
       ) : currentView === "Tracker" ? (
-        <Tracker />
+        <Tracker 
+          theme={theme}
+        />
       ) : (
         <TodoList
           currentView={currentView}
@@ -133,6 +155,7 @@ function App() {
           checkStyle={checkStyle}
           setCheckStyle={setCheckStyle}
           setTodoLists={setTodoLists}
+          theme={theme}
         />
       )}
     </div>
