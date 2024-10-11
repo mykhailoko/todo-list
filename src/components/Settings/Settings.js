@@ -13,7 +13,7 @@ export const Settings = ({ isVisible, toggleSettings, setCheckStyle, checkStyle,
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
-      setIsDarkTheme(savedTheme === "light");
+      setIsDarkTheme(savedTheme === "dark");
     }
   }, []);
 
