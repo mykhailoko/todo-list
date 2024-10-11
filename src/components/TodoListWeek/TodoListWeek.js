@@ -37,7 +37,14 @@ export default function TodoListWeek({ checkStyle, setCheckStyle, theme }) {
           <div className="week-reminder-main">
             <p className="week-reminder">Не забудьте отдохнуть!</p>
             <img src={ChillCat} alt="cute-cat" />
-            <button onClick={handleResetReminder}>OK</button>
+            <button 
+              onClick={handleResetReminder}
+              style={{
+                background: theme === "dark" 
+                  ? '#ffbb33'  
+                  : '#3366ff'
+              }}
+            >OK</button>
           </div>
         </div>
       )}

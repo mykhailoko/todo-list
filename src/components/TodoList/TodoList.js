@@ -185,11 +185,18 @@ export default function TodoList({
           <div className="reminder-main">
             <p className="reminder">Не забудьте отдохнуть!</p>
             <img src={ChillCat} alt="cute-cat" />
-            <button onClick={() => {
-              setShowReminder(false);
-              setAddedTodosCount(0);
-              setCompletedTodosCount(0);
-            }}>OK</button>
+            <button 
+              onClick={() => {
+                setShowReminder(false);
+                setAddedTodosCount(0);
+                setCompletedTodosCount(0);
+              }}
+              style={{
+                background: theme === "dark" 
+                  ? '#ffbb33'  
+                  : '#3366ff'
+              }}
+            >OK</button>
           </div>
         </div>
       )}

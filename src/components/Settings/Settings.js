@@ -6,23 +6,18 @@ import Dog from "../../assets/checkeddog.png";
 import './Settings.css';
 
 export const Settings = ({ isVisible, toggleSettings, setCheckStyle, checkStyle, completedCount, deletedTodos, setDeletedTodos, onThemeChange }) => {
-  const [selectedStyle, setSelectedStyle] = useState("usual");
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-  const [sliderBackgroundColor, setSliderBackgroundColor] = useState("#ffbb33");
-
-  useEffect(() => {
+  const [isDarkTheme, setIsDarkTheme] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      setIsDarkTheme(savedTheme === "dark");
-    }
-  }, []);
+    return savedTheme === "light";
+  });
+
+  const [selectedStyle, setSelectedStyle] = useState("usual");
 
   const toggleTheme = () => {
     const newTheme = isDarkTheme ? "dark" : "light";
-    setIsDarkTheme(!isDarkTheme);
+    setIsDarkTheme(!isDarkTheme); 
     localStorage.setItem("theme", newTheme);
     onThemeChange(newTheme);
-    setSliderBackgroundColor(isDarkTheme ? "#ffbb33" : "#3366ff");
   };
 
   useEffect(() => {
@@ -65,9 +60,9 @@ export const Settings = ({ isVisible, toggleSettings, setCheckStyle, checkStyle,
               checked={isDarkTheme} 
               onChange={toggleTheme} 
             />
-            <span className="slider" style={{ backgroundColor: sliderBackgroundColor }}>
-              <span className="moon"></span>
+            <span className="slider">
               <span className="sun"></span>
+              <span className="moon"></span>
             </span>
           </label>
           <div className="buttons-style">
