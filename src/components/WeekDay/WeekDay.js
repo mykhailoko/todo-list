@@ -149,17 +149,36 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
                 : "#202124"
             }}
           >{dayTitle}</h1>
-          <button 
-            className="week-header-button" 
-            onClick={() => setShowInput(!showInput)}
-            style={{
-              background: theme === "dark" 
-                ? '#ffbb33'  
-                : '#3366ff'
-            }}
-          >
-            <i className={showInput ? "fa-solid fa-xmark" : "fa-solid fa-plus"} style={{ color: 'white', fontSize: '24px' }}></i>
-          </button>
+          <div className="button-container">
+            <button 
+              className="cleaner" 
+              onClick={() => {
+                setTodos([]);
+                setCompletedTodosSet(new Set()); 
+                setAddedTodosCountWeek(0); 
+                setCompletedTodosCountWeek(0);
+                localStorage.removeItem(LOCAL_STORAGE_KEY);
+              }}
+              style={{
+                background: theme === "dark" 
+                  ? '#ffbb33'  
+                  : '#3366ff'
+              }}
+            >
+              <i class="fa-solid fa-broom" style={{ color: 'white', fontSize: '22px' }}></i>
+            </button>
+            <button 
+              className="week-header-button" 
+              onClick={() => setShowInput(!showInput)}
+              style={{
+                background: theme === "dark" 
+                  ? '#ffbb33'  
+                  : '#3366ff'
+              }}
+            >
+              <i className={showInput ? "fa-solid fa-xmark" : "fa-solid fa-plus"} style={{ color: 'white', fontSize: '24px' }}></i>
+            </button>
+          </div>
         </header>
         
         {showInput && (

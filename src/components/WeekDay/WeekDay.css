@@ -25,3 +25,14 @@
 .day {
   margin: 80px 0px;
 }
+
+.cleaner {
+  border: none;
+  outline: none;
+  padding: 15px 14px;
+  background: #ffbb33;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 100px;
+  margin-right: 12px;
+}
