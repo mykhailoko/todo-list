@@ -216,7 +216,13 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
                     : "0px 0px 10px 0px rgba(0, 0, 0, 0.1)"
                 }}
               >
-                <button className="checkbutton" onClick={() => toggleCheck(index)}>
+                <button 
+                  className="checkbutton" 
+                  onClick={() => toggleCheck(index)}
+                  style={{
+                    filter: checkStyle === "dog" ? "drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.3))" : "none"
+                  }}
+                >
                   <img
                     className="check"
                     src={todo.checked ? checkedImg : uncheckedImg}
