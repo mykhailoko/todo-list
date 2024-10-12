@@ -30,6 +30,25 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [selectedTodoIndex, setSelectedTodoIndex] = useState(null);
 
+  const [showCleanerDeleteModal, setShowCleanerDeleteModal] = useState(false);
+
+  const openCleanerDeleteModal = () => {
+    setShowCleanerDeleteModal(true);
+  };
+  
+  const closeCleanerDeleteModal = () => {
+    setShowCleanerDeleteModal(false);
+  };
+  
+  const handleCleanerDelete = () => {
+    setTodos([]);
+    setCompletedTodosSet(new Set()); 
+    setAddedTodosCountWeek(0); 
+    setCompletedTodosCountWeek(0);
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    closeCleanerDeleteModal();
+  };
+
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
   }, [todos, LOCAL_STORAGE_KEY]);
@@ -152,13 +171,7 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
           <div className="button-container">
             <button 
               className="cleaner" 
-              onClick={() => {
-                setTodos([]);
-                setCompletedTodosSet(new Set()); 
-                setAddedTodosCountWeek(0); 
-                setCompletedTodosCountWeek(0);
-                localStorage.removeItem(LOCAL_STORAGE_KEY);
-              }}
+              onClick={openCleanerDeleteModal}
               style={{
                 background: theme === "dark" 
                   ? '#ffbb33'  
@@ -301,6 +314,30 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
               >Да</button>
               <button 
                 onClick={closeDeleteModal}
+                style={{
+                  background: theme === "dark" 
+                    ? '#ffbb33'  
+                    : '#3366ff'
+                }}
+              >Нет</button>
+            </div>
+          </div>
+        )}
+
+        {showCleanerDeleteModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <p>Delete all todos?</p>
+              <button 
+                onClick={handleCleanerDelete}
+                style={{
+                  background: theme === "dark" 
+                    ? '#ffbb33'  
+                    : '#3366ff'
+                }}
+              >Да</button>
+              <button 
+                onClick={closeCleanerDeleteModal}
                 style={{
                   background: theme === "dark" 
                     ? '#ffbb33'  
