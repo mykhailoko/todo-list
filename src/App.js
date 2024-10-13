@@ -65,30 +65,6 @@ function App() {
     setTheme(newTheme);
   };
 
-  const handleAddTodo = (listName, newTodo) => {
-    const updatedLists = todoLists.map((list) => {
-      if (list.name === listName) {
-        return { ...list, todos: [...list.todos, newTodo] };
-      }
-      return list;
-    });
-    setTodoLists(updatedLists);
-  };
-
-  const handleDeleteTodo = (listName, todoIndex) => {
-    const updatedLists = todoLists.map((list) => {
-      if (list.name === listName) {
-        const updatedTodos = list.todos.filter((_, index) => index !== todoIndex);
-        return { ...list, todos: updatedTodos };
-      }
-      return list;
-    });
-    setTodoLists(updatedLists);
-
-    const deletedTodo = todoLists.find((list) => list.name === listName).todos[todoIndex];
-    setDeletedTodos([...deletedTodos, deletedTodo]);
-  };
-
   return (
     <div
       className="container"
@@ -150,8 +126,6 @@ function App() {
         <TodoList
           currentView={currentView}
           todoLists={todoLists}
-          handleAddTodo={handleAddTodo}
-          handleDeleteTodo={handleDeleteTodo}
           checkStyle={checkStyle}
           setCheckStyle={setCheckStyle}
           setTodoLists={setTodoLists}
