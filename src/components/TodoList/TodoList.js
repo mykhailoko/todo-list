@@ -9,6 +9,7 @@ import CheckedDog from "../../assets/checkeddog.png";
 import UncheckedDog from "../../assets/uncheckeddog.png";
 import ChillCat from "../../assets/chillcat.png";
 import './TodoList.css';
+import { useTranslation  } from 'react-i18next';
 
 export default function TodoList({
   currentView,
@@ -18,6 +19,7 @@ export default function TodoList({
   theme
 }) {
   const currentList = todoLists.find((list) => list.name === currentView);
+  const [t] = useTranslation("global");
   const [todoValue, setTodoValue] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [editTodoValue, setEditTodoValue] = useState("");
@@ -187,7 +189,7 @@ export default function TodoList({
       {showReminder && (
         <div className="reminder-container">
           <div className="reminder-main">
-            <p className="reminder">Не забудьте отдохнуть!</p>
+            <p className="reminder">{t("chill.reminder")}</p>
             <img src={ChillCat} alt="cute-cat" />
             <button 
               onClick={() => {
@@ -349,7 +351,7 @@ export default function TodoList({
                     ? '#ffbb33'  
                     : '#3366ff'
                 }}
-              >Да</button>
+              >{t("answer.yes")}</button>
               <button 
                 onClick={handleCancelDelete}
                 style={{
@@ -357,7 +359,7 @@ export default function TodoList({
                     ? '#ffbb33'  
                     : '#3366ff'
                 }}
-              >Нет</button>
+              >{t("answer.no")}</button>
             </div>
           </div>
       )}

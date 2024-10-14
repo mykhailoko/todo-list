@@ -1,0 +1,15 @@
+{
+    "weekday": {
+        "daytitle": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "answer": {
+        "yes": "Yes",
+        "no": "No"
+    },
+    "chill": {
+        "reminder": "Don't forget to rest!"
+    },
+    "months": {
+        "name": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    }
+}

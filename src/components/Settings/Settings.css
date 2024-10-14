@@ -31,7 +31,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px 0px;
-  margin-top: 80px;
+  margin-top: 50px;
   padding: 0px 10px;
 }
 
@@ -58,7 +58,7 @@
 .switch {
   position: relative;
   display: flex;
-  margin: 70px auto 0px;
+  margin: 50px auto 0px;
   width: 80px;
   height: 40px; 
 }
@@ -143,4 +143,20 @@ input:not(:checked) + .slider .moon {
 
 input:not(:checked) + .slider .sun {
   opacity: 0;
+}
+
+.select {
+  font-size: 20px;
+  border-radius: 10px;
+  border-color: black;
+  cursor: pointer;
+  outline: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
+}
+
+.languageside {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 }

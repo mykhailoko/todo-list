@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import './Tracker.css';
+import { useTranslation  } from 'react-i18next';
 
 export const Tracker = ({ theme }) => {
+  const [t] = useTranslation("global");
+
   const months = [
-    { name: 'Январь', days: 31 },
-    { name: 'Февраль', days: 28 },
-    { name: 'Март', days: 31 },
-    { name: 'Апрель', days: 30 },
-    { name: 'Май', days: 31 },
-    { name: 'Июнь', days: 30 },
-    { name: 'Июль', days: 31 },
-    { name: 'Август', days: 31 },
-    { name: 'Сентябрь', days: 30 },
-    { name: 'Октябрь', days: 31 },
-    { name: 'Ноябрь', days: 30 },
-    { name: 'Декабрь', days: 31 }
+    { name: t("months.name.0"), days: 31 },
+    { name: t("months.name.1"), days: 28 },
+    { name: t("months.name.2"), days: 31 },
+    { name: t("months.name.3"), days: 30 },
+    { name: t("months.name.4"), days: 31 },
+    { name: t("months.name.5"), days: 30 },
+    { name: t("months.name.6"), days: 31 },
+    { name: t("months.name.7"), days: 31 },
+    { name: t("months.name.8"), days: 30 },
+    { name: t("months.name.9"), days: 31 },
+    { name: t("months.name.10"), days: 30 },
+    { name: t("months.name.11"), days: 31 }
   ];
 
   const savedMonthIndex = localStorage.getItem('selectedMonthIndex');

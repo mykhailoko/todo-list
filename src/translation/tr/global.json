@@ -1,0 +1,15 @@
+{
+    "weekday": {
+        "daytitle": ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"]
+    },
+    "answer": {
+        "yes": "Evet",
+        "no": "Hayır"
+    },
+    "chill": {
+        "reminder": "Dinlenmeyi unutmayın!"
+    },
+    "months": {
+        "name": ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
+    }
+}

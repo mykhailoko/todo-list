@@ -4,12 +4,27 @@ import Usual from "../../assets/checked.png";
 import Shark from "../../assets/checkedshark.png";
 import Dog from "../../assets/checkeddog.png";
 import './Settings.css';
+import { useTranslation  } from 'react-i18next';
 
 export const Settings = ({ isVisible, toggleSettings, setCheckStyle, checkStyle, completedCount, deletedTodos, setDeletedTodos, onThemeChange }) => {
   const [isDarkTheme, setIsDarkTheme] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
     return savedTheme === "light";
   });
+
+  const[t, i18n] = useTranslation("global");
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("language");
+    if (savedLanguage) {
+      i18n.changeLanguage(savedLanguage);
+    }
+  }, [i18n]);
+
+  const handleChangeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem("language", lang);
+  };
 
   const [selectedStyle, setSelectedStyle] = useState("usual");
 
@@ -105,6 +120,13 @@ export const Settings = ({ isVisible, toggleSettings, setCheckStyle, checkStyle,
             >
               <img className="styleicon" src={Usual} alt="usual" />
             </button>
+          </div>
+          <div className="languageside">
+            <select className="select" value={i18n.language} onChange={(e) => handleChangeLanguage(e.target.value)}>
+              <option className="option" value="ru">RU</option>
+              <option className="option" value="en">EN</option>
+              <option className="option" value="tr">TR</option>
+            </select>
           </div>
         </div>
       )}

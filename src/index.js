@@ -3,11 +3,36 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import global_en from "./translation/en/global.json";
+import global_ru from "./translation/ru/global.json";
+import global_tr from "./translation/tr/global.json";
+import i18next from "i18next";
+import { I18nextProvider } from 'react-i18next';
+
+const savedLanguage = localStorage.getItem("language") || "ru";
+
+i18next.init({
+  intetpolation: {escapeValue: false},
+  lng: savedLanguage,
+  resources: {
+    ru: {
+      global: global_ru
+    },
+    en: {
+      global: global_en
+    },
+    tr: {
+      global: global_tr
+    },
+  }
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <I18nextProvider i18n={i18next}>
+      <App />
+    </I18nextProvider>
   </React.StrictMode>
 );
 

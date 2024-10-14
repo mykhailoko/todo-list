@@ -8,9 +8,11 @@ import CheckedShark from "../../assets/checkedshark.png";
 import UncheckedShark from "../../assets/uncheckedshark.png";
 import CheckedDog from "../../assets/checkeddog.png";
 import UncheckedDog from "../../assets/uncheckeddog.png";
+import { useTranslation  } from 'react-i18next';
 
 export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompletedTodosCountWeek, setCompletedTodosSet, theme }) => {
   const LOCAL_STORAGE_KEY = `todosWeek_${dayTitle}`;
+  const [t] = useTranslation("global");
 
   const [todos, setTodos] = useState(() => {
     const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -286,7 +288,7 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
                     ? '#ffbb33'  
                     : '#3366ff'
                 }}
-              >Да</button>
+              >{t("answer.yes")}</button>
               <button 
                 onClick={closeDeleteModal}
                 style={{
@@ -294,7 +296,7 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
                     ? '#ffbb33'  
                     : '#3366ff'
                 }}
-              >Нет</button>
+              >{t("answer.no")}</button>
             </div>
           </div>
         )}
@@ -327,7 +329,7 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
                     ? '#ffbb33'  
                     : '#3366ff'
                 }}
-              >Да</button>
+              >{t("answer.yes")}</button>
               <button 
                 onClick={closeCleanerDeleteModal}
                 style={{
@@ -335,7 +337,7 @@ export const WeekDay = ({ checkStyle, dayTitle, setAddedTodosCountWeek, setCompl
                     ? '#ffbb33'  
                     : '#3366ff'
                 }}
-              >Нет</button>
+              >{t("answer.no")}</button>
             </div>
           </div>
         )}
