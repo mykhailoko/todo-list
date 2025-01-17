@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function Navbar({ theme }) {
   const navigate = useNavigate();
-  const currentPath = window.location.pathname;
+  const currentPath = window.location.pathname.replace("/todo-list", "");
 
   return (
     <div 
@@ -22,8 +22,8 @@ function Navbar({ theme }) {
         <div className='navItem'>
             <i 
                 className="fa-solid fa-list-check"
-                onClick={() => navigate("/")}
-                style={{ color: currentPath === "/" 
+                onClick={() => navigate("/list")}
+                style={{ color: currentPath === "/list" 
                     ? theme === "dark" ? '#ffbb33' : '#3366ff' 
                     : theme === "dark" ? 'white' : '#202124' }}
             ></i>
