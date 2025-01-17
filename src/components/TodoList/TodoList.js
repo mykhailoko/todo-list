@@ -33,7 +33,7 @@ function TodoList({ selectedList, todos, onUpdateTodos }) {
 
   const [checkStyle] = useState(() => {
     const storedCheckStyle = localStorage.getItem('checkStyle');
-    return storedCheckStyle ? JSON.parse(storedCheckStyle) : "usual";
+    return storedCheckStyle ? storedCheckStyle : "usual";
   });
 
   const handleAddTodo = () => {

@@ -25,7 +25,7 @@ function Weekday({dayTitle, dayIndex}) {
 
   const [checkStyle] = useState(() => {
     const storedCheckStyle = localStorage.getItem('checkStyle');
-    return storedCheckStyle ? JSON.parse(storedCheckStyle) : "";
+    return storedCheckStyle ? storedCheckStyle : "";
   });
 
   const [todoList, setTodoList] = useState(() => {
