@@ -15,7 +15,7 @@ function App() {
   
 
   return (
-    <Router basename="/todo-list">
+    <Router basename={process.env.PUBLIC_URL || "/todo-list"}>
       <div 
         className="App"
         style={{
