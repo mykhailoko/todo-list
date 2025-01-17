@@ -1,0 +1,25 @@
+{
+    "settings": {
+        "check": "Check button:",
+        "language": "Language:",
+        "theme": "Theme:"
+    },   
+    "input": {
+        "button": "Add",
+        "placeholder": "Enter todo"
+    },   
+    "chill": {
+        "reminder": "You have completed all the tasks! It's time to rest!",
+        "reminderday": "You have completed all the tasks for the day! It's time to rest!"
+    },
+    "weekday": {
+        "daytitle": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "months": {
+        "name": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    },
+    "answer": {
+        "yes": "Yes",
+        "no": "No"
+    }
+}

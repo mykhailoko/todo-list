@@ -1,0 +1,187 @@
+.settings {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.settings-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.settings h2 {
+    font-size: 26px;
+}
+
+.check-style {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.check-style-item {
+    transition-duration: 200ms;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: auto;
+    border-radius: 10px;
+}
+
+.styleicon {
+    width: 40px;
+    height: 40px;
+    margin: 15px;
+}
+
+.select {
+    font-size: 22px;
+    border-radius: 10px;
+    border-color: black;
+    cursor: pointer;
+    outline: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    padding: 5px;
+    width: 100px;
+}
+
+.switch {
+    position: relative;
+    width: 80px;
+    height: 40px; 
+}
+  
+.switch input {
+    opacity: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.4s;
+    border-radius: 30px;
+    background-color: #3366ff;
+}
+  
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 36px;
+    width: 36px;
+    left: 2px; 
+    bottom: 2px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+  
+input:checked + .slider {
+    background-color: #ffbb33;
+}
+  
+input:checked + .slider:before {
+    transform: translateX(40px);
+}
+  
+.moon,
+.sun {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    transition: opacity 0.4s;
+}
+  
+.moon {
+    top: 5px;
+    left: 5px;
+    background-image: url("../../assets/moon.png");
+}
+  
+.sun {
+    right: 5px;
+    bottom: 5px;
+    background-image: url("../../assets/sun.png");
+}
+
+input:checked + .slider .moon,
+input:not(:checked) + .slider .sun {
+    opacity: 0;
+}
+
+input:checked + .slider .sun,
+input:not(:checked) + .slider .moon {
+    opacity: 1;
+}
+
+@media only screen and (max-width: 650px) {
+    .settings h2 {
+      font-size: 22px;
+    }
+
+    .styleicon {
+        width: 35px;
+        height: 35px;
+        margin: 15px;
+    }
+
+    .check-style {
+        margin-top: 5px;
+        padding-top: 2px;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .settings h2 {
+        font-size: 18px;
+    }
+
+    .styleicon {
+        width: 30px;
+        height: 30px;
+        margin: 10px;
+    }
+
+    .check-style {
+        margin-top: 10px;
+    
+    }
+
+    select {
+        font-size: 18px;
+        width: 90px;
+    }
+}
+
+@media only screen and (max-width: 460px) {
+    .settings h2 {
+        font-size: 16px;
+    }
+
+    .styleicon {
+        width: 25px;
+        height: 25px;
+        margin: 10px;
+    }
+
+    .check-style {
+        margin-top: 10px;
+        padding-top: 0px;
+    }
+
+    select {
+        font-size: 16px;
+        width: 70px;
+        padding: 3px;
+    }
+}

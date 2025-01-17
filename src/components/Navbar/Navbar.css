@@ -1,0 +1,22 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 15px 0px;
+    z-index: 2;
+}
+
+.navItem {
+    margin: 0px 25px;
+}
+
+.navItem i {
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+}

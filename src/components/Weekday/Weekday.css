@@ -1,0 +1,36 @@
+.day {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.day-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 600px;
+    width: 100%;
+    margin: 20px auto;
+}
+  
+.day-title {
+    line-height: 1.7;
+    font-size: 28px;
+    width: 100%;
+}
+
+.add-button {
+    border: none;
+    outline: none;
+    padding: 14px 15px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 100px;
+}
+
+.day ul {
+    padding-bottom: 90px;
+}
