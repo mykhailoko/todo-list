@@ -22,8 +22,8 @@ function Navbar({ theme }) {
         <div className='navItem'>
             <i 
                 className="fa-solid fa-list-check"
-                onClick={() => navigate("/")}
-                style={{ color: currentPath === "/" 
+                onClick={() => navigate("/todo-list/")}
+                style={{ color: currentPath === "/todo-list/" 
                     ? theme === "dark" ? '#ffbb33' : '#3366ff' 
                     : theme === "dark" ? 'white' : '#202124' }}
             ></i>
@@ -31,8 +31,8 @@ function Navbar({ theme }) {
         <div className='navItem'>
             <i 
                 className="fa-solid fa-calendar-week"
-                onClick={() => navigate("/week-list")}
-                style={{ color: currentPath === "/week-list"
+                onClick={() => navigate("/todo-list/week-list")}
+                style={{ color: currentPath === "/todo-list/week-list"
                     ? theme === "dark" ? '#ffbb33' : '#3366ff' 
                     : theme === "dark" ? 'white' : '#202124' }}
             ></i>
@@ -40,8 +40,8 @@ function Navbar({ theme }) {
         <div className='navItem'>
             <i 
                 className="fa-solid fa-book-open"
-                onClick={() => navigate("/tracker")}
-                style={{ color: currentPath === "/tracker"
+                onClick={() => navigate("/todo-list/tracker")}
+                style={{ color: currentPath === "/todo-list/tracker"
                     ? theme === "dark" ? '#ffbb33' : '#3366ff' 
                     : theme === "dark" ? 'white' : '#202124' }}
             ></i>
@@ -49,8 +49,8 @@ function Navbar({ theme }) {
         <div className='navItem'>
             <i 
                 className="fa-solid fa-gear"
-                onClick={() => navigate("/settings")}
-                style={{ color: currentPath === "/settings"
+                onClick={() => navigate("/todo-list/settings")}
+                style={{ color: currentPath === "/todo-list/settings"
                     ? theme === "dark" ? '#ffbb33' : '#3366ff' 
                     : theme === "dark" ? 'white' : '#202124' }}
             ></i>

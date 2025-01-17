@@ -25,10 +25,10 @@ function App() {
         }}
       >
         <Routes>
-          <Route path='/' element={<TodoListPage />} />
-          <Route path='/week-list' element={<TodoListWeekPage />} />
-          <Route path='/tracker' element={<TrackerPage />} />
-          <Route path='/settings' element={<SettingsPage theme={theme} setTheme={setTheme} />} />
+          <Route path='/todo-list/' element={<TodoListPage />} />
+          <Route path='/todo-list/week-list' element={<TodoListWeekPage />} />
+          <Route path='/todo-list/tracker' element={<TrackerPage />} />
+          <Route path='/todo-list/settings' element={<SettingsPage theme={theme} setTheme={setTheme} />} />
         </Routes>
         <Navbar theme={theme} />
       </div>
