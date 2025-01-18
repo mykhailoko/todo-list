@@ -15,6 +15,7 @@
 
 .settings h2 {
     font-size: 26px;
+    padding-right: 10px;
 }
 
 .check-style {
@@ -126,7 +127,7 @@ input:not(:checked) + .slider .moon {
 
 @media only screen and (max-width: 650px) {
     .settings h2 {
-      font-size: 22px;
+      font-size: 24px;
     }
 
     .styleicon {
@@ -139,11 +140,16 @@ input:not(:checked) + .slider .moon {
         margin-top: 5px;
         padding-top: 2px;
     }
+
+    .select {
+        font-size: 18px;
+        width: 90px;
+    }
 }
 
 @media only screen and (max-width: 550px) {
     .settings h2 {
-        font-size: 18px;
+        font-size: 22px;
     }
 
     .styleicon {
@@ -156,16 +162,11 @@ input:not(:checked) + .slider .moon {
         margin-top: 10px;
     
     }
-
-    select {
-        font-size: 18px;
-        width: 90px;
-    }
 }
 
 @media only screen and (max-width: 460px) {
     .settings h2 {
-        font-size: 16px;
+        font-size: 20px;
     }
 
     .styleicon {
