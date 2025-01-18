@@ -29,15 +29,8 @@ function SettingsPage({ theme, setTheme }) {
   });
 
   useEffect(() => {
-      localStorage.setItem('checkStyle', JSON.stringify(checkStyle));
-    }, [checkStyle]);
-  
-    useEffect(() => {
-      const storedCheckStyle = JSON.parse(localStorage.getItem('checkStyle'));
-      if (storedCheckStyle) {
-        setCheckStyle(storedCheckStyle);
-      }
-    }, []);
+    localStorage.setItem('checkStyle', checkStyle);
+  }, [checkStyle]);
 
   const handleStyleChange = (style) => {
     setCheckStyle(style);
