@@ -52,7 +52,7 @@ function Navbar() {
                 </NavLink>
             </div>
             <div className='navItem'>
-                <NavLink to="/settings" style={({isActive}) => ({
+                <NavLink to="/config" style={({isActive}) => ({
                     color: isActive ? theme === "dark" ? '#ffbb33' : '#3366ff' 
                                     : theme === "dark" ? 'white' : '#202124'
                 })}>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './SettingsPage.css';
+import './ConfigPage.css';
 import Cat from "../../assets/checkedcat.png";
 import Usual from "../../assets/checked.png";
 import Shark from "../../assets/checkedshark.png";
