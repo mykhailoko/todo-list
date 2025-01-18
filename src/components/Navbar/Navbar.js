@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Navbar.css';
-import { NavLink } from "react-router-dom";
 
-function Navbar({ theme }) {
+function Navbar({ theme, setCurrentPage, currentPage }) {
+    const getStyle = (page) => ({
+        color: currentPage === page 
+            ? theme === "dark" ? '#ffbb33' : '#3366ff'
+            : theme === "dark" ? 'white' : '#202124',
+    });
+
     return (
         <div 
             className='navbar'
@@ -16,52 +21,26 @@ function Navbar({ theme }) {
                 : "0px 0px 10px 0px rgba(0, 0, 0, 0.3)"
             }}
         >
-            <div className='navItem'>
-                <NavLink to="/list" style={({isActive}) => ({
-                    color: isActive ? theme === "dark" ? '#ffbb33' : '#3366ff' 
-                                    : theme === "dark" ? 'white' : '#202124'
-                })}>
-                    <i 
-                        className="fa-solid fa-list-check"
-                    ></i>
-                </NavLink>
+            <div className="navItem" onClick={() => setCurrentPage("list")} style={getStyle("list")}>
+                <i className="fa-solid fa-list-check"></i>
             </div>
-            <div className='navItem'>
-            <NavLink to="/week-list" style={({isActive}) => ({
-                    color: isActive ? theme === "dark" ? '#ffbb33' : '#3366ff' 
-                                    : theme === "dark" ? 'white' : '#202124'
-                })}>
-                    <i 
-                        className="fa-solid fa-calendar-week"
-                    ></i>
-                </NavLink>
+            <div className="navItem" onClick={() => setCurrentPage("week-list")} style={getStyle("week-list")}>
+                <i className="fa-solid fa-calendar-week"></i>
             </div>
-            <div className='navItem'>
-                <NavLink to="/tracker" style={({isActive}) => ({
-                    color: isActive ? theme === "dark" ? '#ffbb33' : '#3366ff' 
-                                    : theme === "dark" ? 'white' : '#202124'
-                })}>
-                    <i 
-                        className="fa-solid fa-book-open"
-                    ></i>
-                </NavLink>
+            <div className="navItem" onClick={() => setCurrentPage("tracker")} style={getStyle("tracker")}>
+                <i className="fa-solid fa-book-open"></i>
             </div>
-            <div className='navItem'>
-                <NavLink to="/settings" style={({isActive}) => ({
-                    color: isActive ? theme === "dark" ? '#ffbb33' : '#3366ff' 
-                                    : theme === "dark" ? 'white' : '#202124'
-                })}>
-                    <i 
-                        className="fa-solid fa-gear"
-                    ></i>
-                </NavLink>
+            <div className="navItem" onClick={() => setCurrentPage("settings")} style={getStyle("settings")}>
+                <i className="fa-solid fa-gear"></i>
             </div>
         </div>
     )
 }
 
 Navbar.propTypes = {
-    theme: PropTypes.string.isRequired
+    theme: PropTypes.string.isRequired,
+    currentPage: PropTypes.string.isRequired,
+    setCurrentPage: PropTypes.func.isRequired
 };
 
 export default Navbar;
