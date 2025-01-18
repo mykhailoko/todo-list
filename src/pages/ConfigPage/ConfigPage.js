@@ -6,7 +6,7 @@ import Shark from "../../assets/checkedshark.png";
 import Dog from "../../assets/checkeddog.png";
 import { useTranslation  } from 'react-i18next';
 
-function SettingsPage() {
+function ConfigPage() {
   const [t, i18n] = useTranslation("global");
 
   const [theme, setTheme] = useState(() => {
@@ -124,4 +124,4 @@ function SettingsPage() {
   )
 }
 
-export default SettingsPage;
+export default ConfigPage

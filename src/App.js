@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import TodoListPage from './pages/TodoListPage/TodoListPage';
-import SettingsPage from './pages/SettingsPage/SettingsPage';
+import ConfigPage from './pages/ConfigPage/ConfigPage';
 import TodoListWeekPage from './pages/TodoListWeekPage/TodoListWeekPage';
 import TrackerPage from './pages/TrackerPage/TrackerPage';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
@@ -28,7 +28,7 @@ function App() {
           <Route path='/list' element={<TodoListPage />} />
           <Route path='/week-list' element={<TodoListWeekPage />} />
           <Route path='/tracker' element={<TrackerPage />} />
-          <Route path='/settings' element={<SettingsPage />} />
+          <Route path='/config' element={<ConfigPage />} />
         </Routes>
         <Navbar />
       </div>
