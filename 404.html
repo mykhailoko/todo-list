@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
     <script>
-      window.location.href = "/todo-list" + window.location.pathname + window.location.search;
-    </script>
+        const base = "/todo-list";
+        if (!window.location.pathname.startsWith(base)) {
+          window.location.href = base + window.location.pathname + window.location.search;
+        }
+      </script>
   </head>
   <body>
     Redirecting...
