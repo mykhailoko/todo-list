@@ -25,7 +25,7 @@ function SettingsPage({ theme, setTheme }) {
 
   const [checkStyle, setCheckStyle] = useState(() => {
     const storedCheckStyle = localStorage.getItem('checkStyle');
-    return storedCheckStyle ? JSON.parse(storedCheckStyle) : "usual";
+    return storedCheckStyle ? storedCheckStyle : "usual";
   });
 
   useEffect(() => {
