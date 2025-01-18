@@ -22,7 +22,14 @@ function TodoList({ selectedList, todos, onUpdateTodos }) {
 
   useEffect(() => {
     const allChecked = todos.length > 0 && todos.every((todo) => todo.checked);
-    setShowReminder(allChecked);
+    const reminderShown = localStorage.getItem("reminderShown");
+  
+    if (allChecked && !reminderShown) {
+      setShowReminder(true);
+      localStorage.setItem("reminderShown", "true");
+    } else if (!allChecked) {
+      localStorage.removeItem("reminderShown");
+    }
   }, [todos]);
 
   const [theme] = useState(() => {

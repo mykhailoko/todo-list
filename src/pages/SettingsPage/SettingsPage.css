@@ -155,7 +155,6 @@ input:not(:checked) + .slider .moon {
     .styleicon {
         width: 30px;
         height: 30px;
-        margin: 10px;
     }
 
     .check-style {
@@ -169,15 +168,11 @@ input:not(:checked) + .slider .moon {
         font-size: 20px;
     }
 
-    .styleicon {
-        width: 25px;
-        height: 25px;
-        margin: 10px;
-    }
-
     .check-style {
         margin-top: 10px;
         padding-top: 0px;
+        padding-right: 0px;
+        margin-right: 0px;
     }
 
     select {
