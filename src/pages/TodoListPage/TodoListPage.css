@@ -21,14 +21,16 @@
 }
 
 .menu {
-    position: absolute;
     background: white;
-    left: 50%;
-    transform: translate(-50%);
-    width: 110%;
-    height: calc(100vh - 55px);
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px;
     z-index: 2;
-    padding: 80px 120px;
 }
 
 .menu .input-container {
@@ -42,8 +44,17 @@
     padding: 15px 0px 15px 15px;
 }
 
+.menu .input-container button {
+    width: 25%;
+    padding: 0;
+}
+
 .menu ul {
-    margin-bottom: 30px;
+    display: flex;
+    max-width: 600px;
+    width: 100%;
+    margin: 0px auto;
+    padding: 60px 0px 15px 0px;
 }
 
 .menu-item {
@@ -63,4 +74,10 @@
 
 .menu .edit-input {
     width: 70%;
+}
+
+@media only screen and (max-width: 550px) {
+    .menu .input-container button {
+        width: 35%;
+    }
 }
