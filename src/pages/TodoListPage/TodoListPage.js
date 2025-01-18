@@ -60,6 +60,7 @@ function TodoListPage() {
       i === editList.index ? { ...list, listName: editList.value } : list
     );
     setListList(updatedListList);
+    setSelectedList(editList.value);
     setEditList({ index: null, value: "" })
   };
 

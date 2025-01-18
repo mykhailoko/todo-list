@@ -8,7 +8,7 @@ import TrackerPage from './pages/TrackerPage/TrackerPage';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
 function App() {
-  const [theme, setTheme] = useState(() => {
+  const [theme] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
     return savedTheme ? savedTheme : "dark";
   });
@@ -28,9 +28,9 @@ function App() {
           <Route path='/list' element={<TodoListPage />} />
           <Route path='/week-list' element={<TodoListWeekPage />} />
           <Route path='/tracker' element={<TrackerPage />} />
-          <Route path='/settings' element={<SettingsPage theme={theme} setTheme={setTheme} />} />
+          <Route path='/settings' element={<SettingsPage />} />
         </Routes>
-        <Navbar theme={theme} />
+        <Navbar />
       </div>
     </BrowserRouter>
   );

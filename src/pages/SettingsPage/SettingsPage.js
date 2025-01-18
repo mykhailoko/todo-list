@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import './SettingsPage.css';
 import Cat from "../../assets/checkedcat.png";
 import Usual from "../../assets/checked.png";
@@ -7,8 +6,13 @@ import Shark from "../../assets/checkedshark.png";
 import Dog from "../../assets/checkeddog.png";
 import { useTranslation  } from 'react-i18next';
 
-function SettingsPage({ theme, setTheme}) {
+function SettingsPage() {
   const [t, i18n] = useTranslation("global");
+
+  const [theme, setTheme] = useState(() => {
+      const savedTheme = localStorage.getItem("theme");
+      return savedTheme ? savedTheme : "dark";
+    });
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
@@ -119,10 +123,5 @@ function SettingsPage({ theme, setTheme}) {
     </div>
   )
 }
-
-SettingsPage.propTypes = {
-  theme: PropTypes.string.isRequired,
-  setTheme: PropTypes.func.isRequired
-};
 
 export default SettingsPage;
