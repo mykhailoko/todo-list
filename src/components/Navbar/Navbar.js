@@ -1,14 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import './Navbar.css';
 import { NavLink } from "react-router-dom";
 
-function Navbar() {
-    const [theme] = useState(() => {
-        const savedTheme = localStorage.getItem("theme");
-        return savedTheme ? savedTheme : "dark";
-    });
-      
-
+function Navbar({ theme }) {
     return (
         <div 
             className='navbar'
@@ -52,7 +47,7 @@ function Navbar() {
                 </NavLink>
             </div>
             <div className='navItem'>
-                <NavLink to="/config" style={({isActive}) => ({
+                <NavLink to="/settings" style={({isActive}) => ({
                     color: isActive ? theme === "dark" ? '#ffbb33' : '#3366ff' 
                                     : theme === "dark" ? 'white' : '#202124'
                 })}>
@@ -64,5 +59,9 @@ function Navbar() {
         </div>
     )
 }
+
+Navbar.propTypes = {
+    theme: PropTypes.string.isRequired
+};
 
 export default Navbar;
