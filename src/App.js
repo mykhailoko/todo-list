@@ -5,7 +5,7 @@ import TodoListPage from './pages/TodoListPage/TodoListPage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
 import TodoListWeekPage from './pages/TodoListWeekPage/TodoListWeekPage';
 import TrackerPage from './pages/TrackerPage/TrackerPage';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
 function App() {
   const [theme, setTheme] = useState(() => {
@@ -13,9 +13,8 @@ function App() {
     return savedTheme ? savedTheme : "dark";
   });
   
-
   return (
-    <Router basename={process.env.PUBLIC_URL || "/todo-list"}>
+    <BrowserRouter basename={process.env.PUBLIC_URL || "/todo-list"}>
       <div 
         className="App"
         style={{
@@ -25,6 +24,7 @@ function App() {
         }}
       >
         <Routes>
+          <Route path="/" element={<Navigate to="/list" />} />
           <Route path='/list' element={<TodoListPage />} />
           <Route path='/week-list' element={<TodoListWeekPage />} />
           <Route path='/tracker' element={<TrackerPage />} />
@@ -32,7 +32,7 @@ function App() {
         </Routes>
         <Navbar theme={theme} />
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 

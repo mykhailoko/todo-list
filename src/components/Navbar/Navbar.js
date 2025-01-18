@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Navbar.css';
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Navbar({ theme }) {
-  const navigate = useNavigate();
-  const currentPath = window.location.pathname.replace("/todo-list", "");
-
   return (
     <div 
         className='navbar'
@@ -20,40 +17,44 @@ function Navbar({ theme }) {
         }}
     >
         <div className='navItem'>
-            <i 
-                className="fa-solid fa-list-check"
-                onClick={() => navigate("/list")}
-                style={{ color: currentPath === "/list" 
-                    ? theme === "dark" ? '#ffbb33' : '#3366ff' 
-                    : theme === "dark" ? 'white' : '#202124' }}
-            ></i>
+            <NavLink to="/list" style={({isActive}) => ({
+                color: isActive ? theme === "dark" ? '#ffbb33' : '#3366ff' 
+                                : theme === "dark" ? 'white' : '#202124'
+            })}>
+                <i 
+                    className="fa-solid fa-list-check"
+                ></i>
+            </NavLink>
         </div>
         <div className='navItem'>
-            <i 
-                className="fa-solid fa-calendar-week"
-                onClick={() => navigate("/week-list")}
-                style={{ color: currentPath === "/week-list"
-                    ? theme === "dark" ? '#ffbb33' : '#3366ff' 
-                    : theme === "dark" ? 'white' : '#202124' }}
-            ></i>
+        <NavLink to="/week-list" style={({isActive}) => ({
+                color: isActive ? theme === "dark" ? '#ffbb33' : '#3366ff' 
+                                : theme === "dark" ? 'white' : '#202124'
+            })}>
+                <i 
+                    className="fa-solid fa-calendar-week"
+                ></i>
+            </NavLink>
         </div>
         <div className='navItem'>
-            <i 
-                className="fa-solid fa-book-open"
-                onClick={() => navigate("/tracker")}
-                style={{ color: currentPath === "/tracker"
-                    ? theme === "dark" ? '#ffbb33' : '#3366ff' 
-                    : theme === "dark" ? 'white' : '#202124' }}
-            ></i>
+            <NavLink to="/tracker" style={({isActive}) => ({
+                color: isActive ? theme === "dark" ? '#ffbb33' : '#3366ff' 
+                                : theme === "dark" ? 'white' : '#202124'
+            })}>
+                <i 
+                    className="fa-solid fa-book-open"
+                ></i>
+            </NavLink>
         </div>
         <div className='navItem'>
-            <i 
-                className="fa-solid fa-gear"
-                onClick={() => navigate("/settings")}
-                style={{ color: currentPath === "/settings"
-                    ? theme === "dark" ? '#ffbb33' : '#3366ff' 
-                    : theme === "dark" ? 'white' : '#202124' }}
-            ></i>
+            <NavLink to="/settings" style={({isActive}) => ({
+                color: isActive ? theme === "dark" ? '#ffbb33' : '#3366ff' 
+                                : theme === "dark" ? 'white' : '#202124'
+            })}>
+                <i 
+                    className="fa-solid fa-gear"
+                ></i>
+            </NavLink>
         </div>
     </div>
   )
