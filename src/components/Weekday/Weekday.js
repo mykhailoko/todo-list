@@ -222,7 +222,7 @@ function Weekday({dayTitle, dayIndex}) {
         {showDeleteConfirm && (
           <div className="delete-confirm">
             <div className="delete-confirm-content">
-              <p>Delete todo?</p>
+              <p>{t("answer.answer")}</p>
               <button 
                 onClick={handleDeleteTodo}
                 style={{ background: theme === "dark" ? '#ffbb33' : '#3366ff' }}

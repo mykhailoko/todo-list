@@ -17,7 +17,7 @@ function TodoListWeekPage() {
         <h1 
           className='title'
           style={{ color: theme === "dark" ? "white" : "#202124" }}
-        >Weekly To-Do List</h1>
+        >{t("weekly.title")}</h1>
         <Weekday dayTitle={weekDays[0]} dayIndex={0}/>
         <Weekday dayTitle={weekDays[1]} dayIndex={1}/>
         <Weekday dayTitle={weekDays[2]} dayIndex={2}/>

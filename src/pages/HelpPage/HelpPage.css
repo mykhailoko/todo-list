@@ -1,0 +1,96 @@
+.help {
+    padding-top: 20px;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.help-title h2 {
+    background-color: white;
+    padding: 20px 30px;
+    border-radius: 30px;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.input-help-container {
+    display: flex;
+    border-radius: 30px;
+    max-width: 560px;
+    width: 90%;
+    padding-left: 20px;
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.input-help-container input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 22px 0px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.input-help-container button {
+    border: none;
+    outline: none;
+    padding: 16px 40px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 40px;
+}
+
+.messages {
+    padding-bottom: 30px; 
+    overflow-y: auto; 
+    max-height: calc(100vh - 170px);
+}
+
+.messages::-webkit-scrollbar {
+    width: 0;
+}
+
+.message-container {
+    display: flex;
+    justify-content: center;
+}
+
+.message-container p {
+    background-color: #ffbb33;
+    padding: 20px 30px;
+    width: 480px;
+    border-radius: 30px;
+    margin: 10px 0px;
+    font-size: 14px;
+}
+
+#answer {
+    padding-right: 120px;
+}
+
+#question {
+    padding-left: 120px;
+}
+
+.info-button {
+    border: none;
+    cursor: pointer;
+    border-radius: 100px;
+    height: 32px;
+    width: 28px;
+    background: transparent;
+    color: white;
+    font-size: 30px;
+}
+
+.typing {
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+}

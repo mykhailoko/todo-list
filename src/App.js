@@ -5,6 +5,7 @@ import TodoListPage from './pages/TodoListPage/TodoListPage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
 import TodoListWeekPage from './pages/TodoListWeekPage/TodoListWeekPage';
 import TrackerPage from './pages/TrackerPage/TrackerPage';
+import HelpPage from './pages/HelpPage/HelpPage';
 
 function App() {
   const [theme, setTheme] = useState(() => {
@@ -20,6 +21,8 @@ function App() {
         return <TodoListPage />;
       case "week-list":
         return <TodoListWeekPage />;
+      case "help":
+        return <HelpPage />;
       case "tracker":
         return <TrackerPage />;
       case "settings":

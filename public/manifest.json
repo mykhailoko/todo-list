@@ -1,6 +1,6 @@
 {
-  "short_name": "To-Do List",
-  "name": "To-Do List",
+  "short_name": "Todo List",
+  "name": "Todo List",
   "icons": [
     {
       "src": "to-do-list64.png",

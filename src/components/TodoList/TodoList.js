@@ -117,8 +117,7 @@ function TodoList({ selectedList, todos, onUpdateTodos }) {
             />
             <button 
               onClick={handleAddTodo}
-              style={{ background: theme === "dark" ? '#ffbb33' : '#3366ff'
-              }}
+              style={{ background: theme === "dark" ? '#ffbb33' : '#3366ff' }}
             >{t("input.button")}</button>
           </div>
         )}
@@ -204,7 +203,7 @@ function TodoList({ selectedList, todos, onUpdateTodos }) {
         {showDeleteConfirm && (
           <div className="delete-confirm">
             <div className="delete-confirm-content">
-              <p>Delete todo?</p>
+              <p>{t("answer.answer")}</p>
               <button 
                 onClick={handleDeleteTodo}
                 style={{ background: theme === "dark" ? '#ffbb33' : '#3366ff' }}

@@ -91,7 +91,7 @@ function TrackerPage() {
       <h1 
         className='title'
         style={{ color: theme === "dark" ? "white" : "#202124" }}
-      >Habit Tracker</h1>
+      >{t("tracker.title")}</h1>
       <div className='tracker-table-container'>
         <table 
           className='tracker-table'

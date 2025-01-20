@@ -7,6 +7,10 @@
     "input": {
         "button": "Add",
         "placeholder": "Enter todo"
+    }, 
+    "inputhelp": {
+        "buttonhelp": "Ask",
+        "placeholderhelp": "Enter question"
     },   
     "chill": {
         "reminder": "You have completed all the tasks! It's time to rest!",
@@ -19,7 +23,14 @@
         "name": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     },
     "answer": {
+        "answer": "Delete todo?",
         "yes": "Yes",
         "no": "No"
+    },
+    "tracker": {
+        "title": "Habit Tracker"
+    },
+    "weekly": {
+        "title": "Weekly Todo List"
     }
 }

@@ -27,6 +27,9 @@ function Navbar({ theme, setCurrentPage, currentPage }) {
             <div className="navItem" onClick={() => setCurrentPage("week-list")} style={getStyle("week-list")}>
                 <i className="fa-solid fa-calendar-week"></i>
             </div>
+            <div className="navItem" onClick={() => setCurrentPage("help")} style={getStyle("help")}>
+                <i className="fa-solid fa-comments"></i>
+            </div>
             <div className="navItem" onClick={() => setCurrentPage("tracker")} style={getStyle("tracker")}>
                 <i className="fa-solid fa-book-open"></i>
             </div>
