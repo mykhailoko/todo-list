@@ -32,5 +32,8 @@
     },
     "weekly": {
         "title": "Weekly Todo List"
+    },
+    "help": {
+        "text": "Welcome to our help page! Ask any question about the Todo List app and we will provide you with an answer. Simply type your question in the box below and we will help you quickly! This page is currently only available in Russian."
     }
 }

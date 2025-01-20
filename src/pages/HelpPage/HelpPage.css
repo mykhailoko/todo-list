@@ -93,4 +93,65 @@
     font-size: 24px;
     font-weight: bold;
     color: black;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.typing::after {
+    content: '.';
+    animation: typing 1s steps(3) 1s forwards;
+}
+
+.suggestions-list {
+    list-style: none;
+    margin: 10px 0;
+    padding: 0;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+
+    position: fixed;
+    bottom: 140px;
+    max-width: 560px;
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+  
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+  
+.suggestion-item:hover {
+    background-color: #e0e0e0;
+}
+  
+
+@keyframes typing {
+    0% { content: '. .'; }
+    50% { content: '. . .'; }
+    100% { content: '. . .'; }
+}
+
+@media only screen and (max-width: 500px) {
+    #answer {
+        padding-right: 80px;
+    }
+    
+    #question {
+        padding-left: 80px;
+    }
+}
+
+@media only screen and (max-width: 340px) {
+    #answer {
+        padding-right: 60px;
+    }
+    
+    #question {
+        padding-left: 60px;
+    }
 }

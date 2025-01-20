@@ -18,8 +18,8 @@ function HelpPage() {
     return storedChat ? JSON.parse(storedChat) : [];
   });
 
-  const [typing, setTyping] = useState(false);
-  const [typingDots, setTypingDots] = useState("");
+  const [showTyping, setShowTyping] = useState(false);
+  const [suggestedQuestions, setSuggestedQuestions] = useState([]);
 
   const intents = [
     {
@@ -138,6 +138,21 @@ function HelpPage() {
     }
   ]
 
+  const filterQuestions = (input) => {
+    const filteredQuestions = [];
+    if (input) {
+      for (const intent of intents) {
+        const filteredPatterns = intent.patterns.filter(pattern => 
+          pattern.toLowerCase().startsWith(input.toLowerCase()) 
+        );
+        if (filteredPatterns.length > 0) {
+          filteredQuestions.push(...filteredPatterns);
+        }
+      }
+    }
+    setSuggestedQuestions(filteredQuestions); 
+  };
+
   const findAnswer = (userInput) => {
     const userQuery = userInput.toLowerCase();
     const similarityThreshold = 0.3;
@@ -155,9 +170,10 @@ function HelpPage() {
 
   const handleInputChange = (event) => {
     setInputText(event.target.value);
+    filterQuestions(event.target.value);
   };
 
-  const handleAskQuestion = () => {
+  const handleAskQuestion = (inputText) => {
     if (inputText.trim()) {
       const answer = findAnswer(inputText);
       setChat((prevChat) => {
@@ -168,32 +184,17 @@ function HelpPage() {
         return newChat;
       });
       setInputText(""); 
-      setTyping(true);
+      setShowTyping(true);
+
+      setTimeout(() => {
+        setShowTyping(false); 
+      }, 2000);
     }
   };
 
-  
-  useEffect(() => {
-    if (chat.length > 0) {
-      const timer = setTimeout(() => {
-        setTyping(false);
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [chat]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTypingDots((prevDots) => {
-        if (prevDots.length === 10) {
-          return '. ';
-        }
-        return prevDots + '. ';
-      });
-    }, 700);
-
-    return () => clearInterval(interval);
-  }, []);
+  const handleSuggestionClick = (question) => { 
+    handleAskQuestion(question); 
+  };
 
   useEffect(() => {
     localStorage.setItem('chat', JSON.stringify(chat));
@@ -220,7 +221,7 @@ function HelpPage() {
           onChange={handleInputChange}
         />
         <button
-          onClick={handleAskQuestion}
+          onClick={() => handleAskQuestion(inputText)}
           style={{ background: theme === "dark" ? '#ffbb33' : '#3366ff' }}  
         >
           {t("inputhelp.buttonhelp")}
@@ -231,14 +232,24 @@ function HelpPage() {
         className='info-button'
         onClick={() => setShowInfo(!showInfo)}
       >
-        <i className={showInfo ? 'fa-solid fa-circle-xmark' : 'fa-solid fa-circle-info'}></i>
+        <i 
+          className={showInfo ? 'fa-solid fa-circle-xmark' : 'fa-solid fa-circle-info'}
+          style={{ color: theme === "dark" ? 'white' : '#3366ff' }} 
+        ></i>
       </button>
 
       {showInfo && (
         <div className='help-title'>
-          <h2>Добро пожаловать на страницу помощи! Задайте любой вопрос о приложении Todo List, и мы 
-            предоставим вам ответ. Просто введите вопрос в поле ниже, и мы быстро поможем!</h2>
+          <h2>{t("help.text")}</h2>
         </div>
+      )}
+
+      {inputText && suggestedQuestions.length > 0 && (
+        <ul className="suggestions-list">
+          {suggestedQuestions.map((question, index) => (
+            <li key={index} className="suggestion-item" onClick={() => handleSuggestionClick(question)}>{question}</li>
+          ))}
+        </ul>
       )}
 
       <div className='messages'>
@@ -248,8 +259,8 @@ function HelpPage() {
               <p>{chatItem.question}</p>
             </div>
             <div className='message-container' id='answer'>
-              {typing && index === chat.length - 1 ? (
-                <p className="typing">{typingDots}</p> 
+              {showTyping && index === chat.length - 1 ? (
+                <p className="typing"></p> 
               ) : (
                 <p>{chatItem.answer}</p>
               )}
