@@ -240,7 +240,11 @@ function HelpPage() {
 
       {showInfo && (
         <div className='help-title'>
-          <h2>{t("help.text")}</h2>
+          <h2 
+            style={{boxShadow: theme === "dark"
+            ? "0px 0px 10px 0px rgba(255, 255, 255, 0)"
+            : "0px 0px 10px 0px rgba(0, 0, 0, 0.1)"}}
+          >{t("help.text")}</h2>
         </div>
       )}
 
@@ -256,13 +260,21 @@ function HelpPage() {
         {chat.map((chatItem, index) => (
           <div key={index}>
             <div className='message-container' id='question'>
-              <p>{chatItem.question}</p>
+              <p 
+                style={{ 
+                  background: theme === "dark" ? '#ffbb33' : '#3366ff',
+                  color: theme === "dark" ? "black" : "white"}}
+              >{chatItem.question}</p>
             </div>
             <div className='message-container' id='answer'>
               {showTyping && index === chat.length - 1 ? (
                 <p className="typing"></p> 
               ) : (
-                <p>{chatItem.answer}</p>
+                <p 
+                  style={{ 
+                    background: theme === "dark" ? '#ffbb33' : '#3366ff',
+                    color: theme === "dark" ? "black" : "white"}}
+                >{chatItem.answer}</p>
               )}
             </div>
           </div>
