@@ -17,7 +17,7 @@ function TodoList({ selectedList, todos, onUpdateTodos }) {
   const [todoValue, setTodoValue] = useState("");
   const [editTodo, setEditTodo] = useState({ index: null, value: ""});
   const [showReminder, setShowReminder] = useState(false);
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState({ visible: false, index: null });
   const [t] = useTranslation("global");
 
   useEffect(() => {
@@ -51,11 +51,14 @@ function TodoList({ selectedList, todos, onUpdateTodos }) {
     }
   };
 
-  const handleDeleteTodo = (index) => {
-    const updatedTodoList = [...todos];
-    updatedTodoList.splice(index, 1);
-    onUpdateTodos(updatedTodoList);
-    setShowDeleteConfirm(false);
+  const handleDeleteTodo = () => {
+    if (showDeleteConfirm.index !== null) {
+      const updatedTodoList = [...todos];
+      updatedTodoList.splice(showDeleteConfirm.index, 1);
+      onUpdateTodos(updatedTodoList);
+    }
+
+    setShowDeleteConfirm({ visible: false, index: null });
   };
 
   const handleEditTodo = () => {
@@ -167,7 +170,7 @@ function TodoList({ selectedList, todos, onUpdateTodos }) {
                   <button onClick={() => setEditTodo({ index, value: todo.text })}>
                     <i className='fa-solid fa-pencil'></i>
                   </button>
-                  <button onClick={() => setShowDeleteConfirm(prev => !prev)}>
+                  <button onClick={() => setShowDeleteConfirm({ visible: true, index })}>
                     <i className='fa-regular fa-trash-can'></i>
                   </button>
                 </div>
@@ -200,7 +203,7 @@ function TodoList({ selectedList, todos, onUpdateTodos }) {
           </div>
         )}
 
-        {showDeleteConfirm && (
+        {showDeleteConfirm.visible && (
           <div className="delete-confirm">
             <div className="delete-confirm-content">
               <p>{t("answer.answer")}</p>
@@ -209,7 +212,7 @@ function TodoList({ selectedList, todos, onUpdateTodos }) {
                 style={{ background: theme === "dark" ? '#ffbb33' : '#3366ff' }}
               >{t("answer.yes")}</button>
               <button 
-                onClick={() => setShowDeleteConfirm(prev => !prev)}
+                onClick={() => setShowDeleteConfirm({ visible: false, index: null })}
                 style={{ background: theme === "dark" ? '#ffbb33' : '#3366ff' }}
               >{t("answer.no")}</button>
             </div>

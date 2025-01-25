@@ -16,7 +16,7 @@ function Weekday({dayTitle, dayIndex}) {
   const LOCAL_STORAGE_KEY = `todoListWeek_${dayIndex}`;
   const [t] = useTranslation("global");
   const [showReminderDay, setShowReminderDay] = useState(false);
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState({ visible: false, index: null });
 
   const [theme] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -68,11 +68,13 @@ function Weekday({dayTitle, dayIndex}) {
     }
   };
 
-  const handleDeleteTodo = (index) => {
-    const updatedTodoList = [...todoList];
-    updatedTodoList.splice(index, 1);
-    setTodoList(updatedTodoList);
-    setShowDeleteConfirm(false);
+  const handleDeleteTodo = () => {
+    if (showDeleteConfirm.index !== null) {
+      const updatedTodoList = [...todoList];
+      updatedTodoList.splice(showDeleteConfirm.index, 1);
+      setTodoList(updatedTodoList);
+    }
+    setShowDeleteConfirm({ visible: false, index: null });
   };
 
   const handleEditTodo = () => {
@@ -197,7 +199,7 @@ function Weekday({dayTitle, dayIndex}) {
                   <button onClick={() => setEditTodo({ index, value: todo.text })}>
                     <i className='fa-solid fa-pencil'></i>
                   </button>
-                  <button onClick={() => setShowDeleteConfirm(prev => !prev)}>
+                  <button onClick={() => setShowDeleteConfirm({ visible: true, index })}>
                     <i className='fa-regular fa-trash-can'></i>
                   </button>
                 </div>
@@ -219,7 +221,7 @@ function Weekday({dayTitle, dayIndex}) {
           </div>
         )}
 
-        {showDeleteConfirm && (
+        {showDeleteConfirm.visible && (
           <div className="delete-confirm">
             <div className="delete-confirm-content">
               <p>{t("answer.answer")}</p>
@@ -228,7 +230,7 @@ function Weekday({dayTitle, dayIndex}) {
                 style={{ background: theme === "dark" ? '#ffbb33' : '#3366ff' }}
               >{t("answer.yes")}</button>
               <button 
-                onClick={() => setShowDeleteConfirm(prev => !prev)}
+                onClick={() => setShowDeleteConfirm({ visible: false, index: null })}
                 style={{ background: theme === "dark" ? '#ffbb33' : '#3366ff' }}
               >{t("answer.no")}</button>
             </div>
